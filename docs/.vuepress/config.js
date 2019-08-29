@@ -12,7 +12,7 @@ module.exports = {
     nav: [
       { text: '首页', link: '/' },
       { text: 'JavaScript系列', link: '/javascript/原型与原型链.html' }, // 内部链接 以docs为根目录
-      { text: 'Css系列', link: '/css/CSS权重.html' }
+      { text: 'Css系列', link: '/css/CSS权重.html' },
     ],
     sidebar: {
       '/javascript/': [
