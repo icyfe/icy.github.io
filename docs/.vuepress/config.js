@@ -11,8 +11,8 @@ module.exports = {
     // lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
       { text: '首页', link: '/' },
-      { text: 'JavaScript系列', link: '/javascript/原型与原型链.html' }, // 内部链接 以docs为根目录
-      { text: 'Css系列', link: '/css/CSS权重.html' },
+      { text: 'JavaScript系列', link: '/javascript/' }, // 内部链接 以docs为根目录
+      { text: 'Css系列', link: '/css/' },
     ],
     sidebar: {
       '/javascript/': [
@@ -31,7 +31,6 @@ module.exports = {
           ]
         }
       ],
-
       '/css/': [
         {
           title: 'Css系列',
