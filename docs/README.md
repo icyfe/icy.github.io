@@ -2,7 +2,7 @@
 home: true
 heroImage: /logo.png
 actionText: icccy blog →
-actionLink: /zh/guide/
+actionLink: /javascript/
 features:
 
 footer: Copyright © 2019 xxdeng
