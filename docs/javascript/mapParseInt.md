@@ -1,3 +1,5 @@
+# ['1', '2', '3'].map(parseInt) 解析为什么后面两个是 NaN
+
 ### parseInt 的作用
 
 parseInt(string, radix)

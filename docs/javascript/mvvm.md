@@ -1,3 +1,5 @@
+# 实现一个简单的 MVVM
+
 用过 vue 的都知道双向绑定，双向绑定就是当 view 的数据改变的时候 data 的数据也会同时变化。vue 的双向绑定其实就是基于 Object.defineProperty 的数据劫持加上发布-订阅模式实现的。我们基于这两点来理一下实现的思路，我们要一个数据的观察者 observe 来实现对数据的劫持， 当数据变化的时候，我们要有一个事件的派发者通知订阅者实时更新数据，同时我们应该还要有一个 complie 来进行指令解析，将这些关联起来，先来看看最终实现的效果
 ![L$IT(BW0 Q %TT7Q A9W_9Y](https://user-images.githubusercontent.com/44893721/55455070-bc4cdf80-5614-11e9-89ea-fb72997507f3.png)
 ![aaa](https://user-images.githubusercontent.com/44893721/55455171-2f565600-5615-11e9-8b95-5669d8479f31.gif)

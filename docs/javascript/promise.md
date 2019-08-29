@@ -1,3 +1,5 @@
+# 手写简单版符合 PromiseA+规范的 Promise
+
 今天手写一个符合 promiseA+规范的 promise，这个知识点可能快被写烂了吧，但还是作为学习比较加深自己对 Promise 的理解。
 先来了解 Promise 是什么，promise 的出现为了解决什么问题，最后我们根据 promiseA+自己手写实现一个 promise
 
