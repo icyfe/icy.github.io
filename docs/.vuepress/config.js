@@ -1,5 +1,5 @@
 module.exports = {
-  // title: 'icccyyy Blog',
+  title: 'icccyyy Blog',
   base: '/icyblog/',
   description: '吾欲追晚否？ 曰：管他娘，追了在说~',
   head: [
