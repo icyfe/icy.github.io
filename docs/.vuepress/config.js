@@ -16,7 +16,7 @@ module.exports = {
     ],
     sidebar: {
       '/javascript/': [
-        ['', '原型与原型链'],
+        '/javascript/原型与原型链.md',
         ['ExecutionContext', '执行上下文'],
         ['this', 'this指向'],
         ['vo', '变量对象'],
