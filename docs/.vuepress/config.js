@@ -20,7 +20,7 @@ module.exports = {
           title: 'JavaScript系列',
           collapsable: false,
           children: [
-            '/javascript/原型与原型链',
+            ['/javascript/', '原型与原型链'],
             '/javascript/变量对象',
             '/javascript/执行上下文',
             '/javascript/作用域与作用域链',
