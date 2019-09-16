@@ -1,11 +1,11 @@
 # ['1', '2', '3'].map(parseInt) 解析为什么后面两个是 NaN
 
-### parseInt 的作用
+## parseInt 的作用
 
 parseInt(string, radix)
 parseInt 使得一个字符串转换成十进制整数，它接受两个参数，参数一将要转换的字符串，参数二可选表示为解析时的基数未传参时默认为 10
 
-### 遵循以下主要规则：
+## 遵循以下主要规则：
 
 1.如果 parseInt 的参数不是字符串，则会先转为字符串再转换
 
@@ -59,7 +59,7 @@ let a = parseInt('1', 2); //1
 这里罗列了主要规则更多的可自行查阅
 [](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 
-### map 的作用
+## map 的作用
 
 MDN 给的说明
 `map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果`。
@@ -93,7 +93,7 @@ const map1 = array1.map(function(item, index, arr) {
 第二次调用的时候基数传入当前的索引 1，**当基数小于 2 大于 36 时 返回 NaN**；
 第三次调用的时候基数传入当前的索引 2，**当要转换的值大于或等于基数时返回 NaN.**
 
-### 如何解决这种问题呢？
+## 如何解决这种问题呢？
 
 主要原因我多穿了参数给 parseInt 那么我们不传那么多参数就好了，可以如下这样解决
 

@@ -19,7 +19,7 @@ class Mvvm {
 }
 ```
 
-### Observe
+## Observe
 
 Observe 取出 data 中所有的属性并对其进行劫持，在 Mvvm 类中添加 observe 方法
 
@@ -47,7 +47,7 @@ Observe 取出 data 中所有的属性并对其进行劫持，在 Mvvm 类中添
 
 这里 observe 取出 data 中的属性数据，如果子属性还是个对象就进行递归，这样子属性如果发生了变化也能监听的到了。这个部分我们已经可以在数据变化的时候对数据进行拦截，但是我们要有一个事件的接收和派发调度员，让订阅消息的人可以实时的知道数据更新。
 
-### Dispatcher
+## Dispatcher
 
 Dispatcher 主要做的事情就是对事件的接受和发布，让监听的人可以实时的知道数据的更新并同步的对 dom 的数据进行更新。
 
@@ -70,7 +70,7 @@ class Dispatcher {
 
 Dispatcher 其实就相当于一个调度员赋值事件的接受和发布，每当有新的 watcher 就添加进队列，当数据更新时，统一通知这些 watcher 我数据更新啦你也快更新吧。有了调度员，现在缺个订阅的我们来看下 watcher 怎么实现
 
-### Watcher
+## Watcher
 
 watcher 其实很简单就做一件事对节点的数据进行更新
 
@@ -151,6 +151,6 @@ class Watcher {
     }
 ```
 
-### nodetype 属性
+## nodetype 属性
 
 ![1554273976(1)](https://user-images.githubusercontent.com/44893721/55458438-9d077f80-561f-11e9-96c0-1e9948093bea.jpg)

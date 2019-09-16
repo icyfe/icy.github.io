@@ -3,14 +3,14 @@
 今天手写一个符合 promiseA+规范的 promise，这个知识点可能快被写烂了吧，但还是作为学习比较加深自己对 Promise 的理解。
 先来了解 Promise 是什么，promise 的出现为了解决什么问题，最后我们根据 promiseA+自己手写实现一个 promise
 
-### 一、Promise 是什么？
+## 一、Promise 是什么？
 
 贴一段 MDN 的介绍
 `Promise 对象用于表示一个异步操作的最终状态（完成或失败），以及其返回的值..... Promise 对象是一个代理对象（代理一个值），被代理的值在Promise对象创建时可能是未知的。它允许你为异步操作的成功和失败分别绑定相应的处理方法（handlers）。 这让异步方法可以像同步方法那样返回值，但并不是立即返回最终执行结果，而是一个能代表未来出现的结果的promise对象。`
 通俗点来说就是解决异步操作问题的一个类。
 [https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise](url)
 
-### 二、Promise 的出现为了解决什么问题？
+## 二、Promise 的出现为了解决什么问题？
 
 相信接触过异步操作的同学都经历过回调地狱，一个异步接着一个异步如下所示
 
@@ -43,7 +43,7 @@ console.log(res)
 这样的每一次的 then 的返回值都可以作为下一个的异步操作的参数，这样回调地狱的问题就轻易解决了。
 本文对 Promise 的用法不多做介绍跟多的用法可看阮一峰老师的 es6 入门[http://es6.ruanyifeng.com/](url)
 
-### 三、手写一个符合 PromiseA+规范的 Promise
+## 三、手写一个符合 PromiseA+规范的 Promise
 
 开始写之前贴上 PromiseA+规范的链接 [http://www.ituring.com.cn/article/66566](url)
 **1、首先 Promise 有三种状态等待(pending),
