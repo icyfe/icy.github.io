@@ -1,5 +1,6 @@
 ---
 home: true
+poster: /logo.png
 heroImage: /logo.png
 actionText: icccy blog →
 actionLink: /javascript/

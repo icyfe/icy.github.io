@@ -28,6 +28,7 @@ module.exports = {
             '/javascript/mvvm',
             '/javascript/promise',
             '/javascript/this指向问题',
+            '/javascript/10W条数据优化'
           ]
         }
       ],
