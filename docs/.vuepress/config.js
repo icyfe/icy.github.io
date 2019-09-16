@@ -37,7 +37,7 @@ module.exports = {
           title: 'Css系列',
           collapsable: false,
           children: [
-            '/css/CSS权重',
+            ['/css/', 'CSS权重'],
           ]
         }
       ]
