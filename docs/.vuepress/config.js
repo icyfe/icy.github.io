@@ -48,7 +48,7 @@ module.exports = {
           collapsable: false,
           children: [
             ['/worktool/', '日常正则'],
-            ['/worktool/', 'React拖拽排序'],
+            '/worktool/React拖拽排序',
           ]
         }
       ]
