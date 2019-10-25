@@ -13,6 +13,7 @@ module.exports = {
       { text: '首页', link: '/' },
       { text: 'JavaScript系列', link: '/javascript/' }, // 内部链接 以docs为根目录
       { text: 'Css系列', link: '/css/' },
+      { text: '工具箱', link: '/worktool/' },
     ],
     sidebar: {
       '/javascript/': [
@@ -38,6 +39,16 @@ module.exports = {
           collapsable: false,
           children: [
             ['/css/', 'CSS权重'],
+          ]
+        }
+      ],
+      '/worktool/': [
+        {
+          title: '工具箱',
+          collapsable: false,
+          children: [
+            ['/worktool/', '日常正则'],
+            ['/worktool/', 'React拖拽排序'],
           ]
         }
       ]
