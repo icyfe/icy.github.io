@@ -1,7 +1,7 @@
 module.exports = {
   title: "icccyyy Blog",
   base: "/icyblog/",
-  description: "吾欲追晚否？ 曰:先追了在说~",
+  description: "好好学习，天天向上~",
   head: [["link", { rel: "icon", href: "/favicon.ico" }]],
   themeConfig: {
     sidebarDepth: 2,
