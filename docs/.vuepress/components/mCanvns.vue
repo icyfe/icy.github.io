@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  data() {},
   mounted() {
     var canvas = document.querySelector("canvas"),
       ctx = canvas.getContext("2d");
@@ -149,6 +148,7 @@ export default {
       requestAnimationFrame(animateDots);
     }
 
+     
     // ----------------------跟着鼠标动--------------------
     document.getElementById("home").addEventListener("mousemove", function(e) {
       mousePosition.x = e.pageX;
@@ -167,13 +167,18 @@ export default {
 </script>
 <style>
 #home {
-  position: relative;
+  position: absolute;
+  /* pointer-events: none; */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   color: #fff;
   /* box-sizing: border-box; */
   overflow-x: hidden;
-  background: rgba(7, 17, 27, 0.95);
+  /* background: rgba(7, 17, 27, 0.95); */
 }
 .canvas {
   position: fixed;
@@ -271,4 +276,3 @@ table tr th {
   transform: rotate(-70deg) translateX(300px);
 }
 </style>
-
