@@ -46,7 +46,8 @@ module.exports = {
             ["/worktool/", "日常正则"],
             "/worktool/React拖拽排序",
             "/worktool/其他常用",
-            "/worktool/React可上传图片富文本"
+            "/worktool/React可上传图片富文本",
+            "/worktool/less全局换肤方案"
           ]
         }
       ]
