@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-17T08:01:12.248Z</updated>
+    <updated>2020-06-17T08:23:13.964Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -10,6 +10,1199 @@
     <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
     <rights>All rights reserved 2020, icyfe</rights>
+    <entry>
+        <title type="html"><![CDATA[Css 权重值]]></title>
+        <id>https://icyfe.github.io/icyblog/post/css-quan-chong-zhi/</id>
+        <link href="https://icyfe.github.io/icyblog/post/css-quan-chong-zhi/">
+        </link>
+        <updated>2020-06-17T08:20:10.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="css-权重值">Css 权重值？</h1>
+<p>在日常我们写 css 样式的时候或多或少都遇到过自己写的样式不生效的时候，一般都不会去探究背后的原因直接一股脑的！important 完事，但这样是非常不好的，但有的时候加了 important 也无法生效样式（当然我们还是遵循能不写 Important 就尽量不写），这是为什么呢！在 css 写样式中有个重要的权重问题！</p>
+<h2 id="什么是权重">什么是权重？</h2>
+<p>每个 css 规则都有自己相应的权重值，权重值越大的规则生效，主要有 5 种</p>
+<ol>
+<li>行内样式 权重值 1000</li>
+<li>id 选择器 权重值 100</li>
+<li>类选择起，属性和伪类(:hover,actived) 权重值 10 4.元素，伪元素 (::before,::after) 权重值 1<br>
+5.!important 最大，（但也遵从权重计算规则下面会提到）<br>
+我们写的 css 规则就按照以上权重值进行累加，例如以下栗子：</li>
+</ol>
+<pre><code class="language-css">&lt;div style=&quot;.....&quot;&gt;&lt;/div&gt; =&gt;1000
+#id{} =&gt;100
+.class{}=&gt;10
+body{} =&gt;1
+p{}=&gt;1
+</code></pre>
+<p>当写 css 规则时会按照值进行累加，值越大权重越大</p>
+<pre><code class="language-css">body #id {} =&gt;元素1 id选择器100 = 101
+#id .class{} =&gt;id选择器100类选择器 = 110
+#id .class p{} =&gt; id选择器100  类选择器10 元素标签1 = 111
+</code></pre>
+<h2 id="主要规则">主要规则</h2>
+<p><strong>无论多少个同级权重累加都不会超过高等级权重值</strong></p>
+<pre><code class="language-css">.class .class .Nclass {
+}
+&lt; #id {
+}
+</code></pre>
+<p><strong>相同权重值作用于同一个元素时权重值大的生效</strong></p>
+<pre><code class="language-css">.test1 .test2{background:red} =&gt;20
+.tetst1 .test2 p{background:black} =&gt;21
+</code></pre>
+<p>假设以上两条都作用于同一个元素，下面权重值高的会生效<br>
+有时候!important 加了也没生效是为什么呢？因为它也遵循权重大小规则例如：</p>
+<pre><code class="language-css">.test1 .test2{background:red!important} =&gt;20
+.tetst1 .test2 p{background:black!important} =&gt;21
+</code></pre>
+<p>上面都加了 important 但还是权重值更大的会生效<br>
+<strong>离元素标签越近的生效</strong><br>
+在一个单独的 css 文件写如下样式</p>
+<pre><code class="language-css">.nav-bar {
+  background: red;
+}
+</code></pre>
+<p>在 html 的 style 中写</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;style&gt;
+    .nav-bar {
+      background: black;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+</code></pre>
+<p>以上栗子中虽然都一样但是下面的 css 会生效<br>
+<a href="https://www.adobe.com/devnet/archive/dreamweaver/articles/css_specificity_02.html">详细参阅【Understanding Specificity】 </a></p>
+<p><strong>相同的权重后面的会覆盖前面的</strong></p>
+<pre><code class="language-css">p {
+  background: red;
+}
+p {
+  background: black;
+}
+</code></pre>
+<h2 id="最后">最后</h2>
+<p><strong>不要用!important</strong><br>
+永远都不要使用“!important”：“如果你遇到了权重问题，第一个解决方法肯定是去掉“!important”，“!important”会覆盖所有的样式规则，但“!important”根本没有结构与上下文可言，所以很 容易找不到样式失效的原因</p>
+<p>本文参考<a href="https://www.w3cplus.com/css/css-specificity-things-you-should-know.html">你应该知道的 css 权重问题</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ less 全局换肤方案]]></title>
+        <id>https://icyfe.github.io/icyblog/post/less-quan-ju-huan-fu-fang-an/</id>
+        <link href="https://icyfe.github.io/icyblog/post/less-quan-ju-huan-fu-fang-an/">
+        </link>
+        <updated>2020-06-17T08:18:58.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="方案基于-antd-ui">方案基于 antd UI</h2>
+<h2 id="新建-globalless">新建 global.less</h2>
+<p>新建 global.less 在资源文件夹 aseets/style 下 具体代码如下 虽然这个没什么用但是必须得创建</p>
+<pre><code class="language-js">@primary-color: &quot;#f52533&quot; !important;
+
+</code></pre>
+<h2 id="新建-varsless">新建 vars.less</h2>
+<p>新建 vars.less 在资源文件夹 aseets/style(根据自己项目情况而定)</p>
+<pre><code class="language-js">@import &quot;~antd/lib/style/themes/default.less&quot;; //引入antd的变量文件，实现变量的覆盖
+@primary-color: #1da57a;
+@link-color: #1da57a;
+@btn-primary-bg: #1da57a;
+:root {
+ --primary-color-0: @primary-color; //color.less中加入css原生变量：--PC
+}
+
+</code></pre>
+<h2 id="新建-themcolorjs">新建 themColor.js</h2>
+<p>在项目根目录下 新建 themColor.js 用于动态更改全局主题色</p>
+<pre><code class="language-js">const path = require(&quot;path&quot;);
+const { generateTheme, getLessVars } = require(&quot;antd-theme-generator&quot;);
+
+const options = {
+  stylesDir: path.join(__dirname, &quot;./src/assets/styles&quot;), //对应具体位置
+  antDir: path.join(__dirname, &quot;./node_modules/antd&quot;), //对应具体位置
+  varFile: path.join(__dirname, &quot;./src/assets/styles/vars.less&quot;), //对应具体位置
+  mainLessFile: path.join(__dirname, &quot;./src/assets/styles/global.less&quot;), //对应具体位置
+  themeVariables: [
+    &quot;@primary-color&quot;,
+    &quot;@secondary-color&quot;,
+    &quot;@text-color&quot;,
+    &quot;@text-color-secondary&quot;,
+    &quot;@heading-color&quot;,
+    &quot;@layout-body-background&quot;,
+    &quot;@btn-primary-bg&quot;,
+    &quot;@layout-header-background&quot;
+  ],
+  indexFileName: &quot;index.html&quot;,
+  outputFilePath: path.join(__dirname, &quot;./public/color.less&quot;) //页面引入的主题变量文件
+};
+
+generateTheme(options)
+  .then(less =&gt; {
+    console.log(&quot;Theme generated successfully&quot;);
+  })
+  .catch(error =&gt; {
+    console.log(&quot;Error&quot;, error);
+  });
+</code></pre>
+<h3 id="在模板-indexhtml-就是我们的组件要挂载的-html-中加入以下配置">在模板 index.html (就是我们的组件要挂载的 html) 中加入以下配置</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;%PUBLIC_URL%/favicon.ico&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+    &lt;meta name=&quot;theme-color&quot; content=&quot;#000000&quot; /&gt;
+    &lt;meta
+      name=&quot;description&quot;
+      content=&quot;Web site created using create-react-app&quot;
+    /&gt;
+    &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;logo192.png&quot; /&gt;
+
+    &lt;!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    --&gt;
+    &lt;link rel=&quot;manifest&quot; href=&quot;%PUBLIC_URL%/manifest.json&quot; /&gt;
+    &lt;!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike &quot;/favicon.ico&quot; or &quot;favicon.ico&quot;, &quot;%PUBLIC_URL%/favicon.ico&quot; will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    --&gt;
+    &lt;title&gt;React App&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;!-- 重点是这里 start --&gt;
+    &lt;link
+      rel=&quot;stylesheet/less&quot;
+      type=&quot;text/css&quot;
+      href=&quot;%PUBLIC_URL%/color.less&quot;
+      rel=&quot;external nofollow&quot;
+    /&gt;
+    &lt;script&gt;
+      window.less = {
+        async: false,
+        env: &quot;production&quot;
+      };
+    &lt;/script&gt;
+    &lt;script
+      type=&quot;text/javascript&quot;
+      src=&quot;https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js&quot;
+    &gt;&lt;/script&gt;
+    &lt;!-- 重点是这里 end --&gt;
+    &lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt;
+    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+    &lt;!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the &lt;body&gt; tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="最后修改-packgejson-文件">最后修改 packge.json 文件</h3>
+<p>在 scripts 中加入以下代码</p>
+<pre><code class="language-js">  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node themeColor &amp;&amp; node scripts/start.js&quot;,
+    &quot;build&quot;: &quot;node themeColor &amp;&amp; node scripts/build.js&quot;,
+    &quot;test&quot;: &quot;node scripts/test.js&quot;
+  },
+</code></pre>
+<h2 id="如何更改">如何更改</h2>
+<p>在需要动态更改的地方 使用以下代码就可以了</p>
+<pre><code class="language-js">window.less
+  .modifyVars({
+    &quot;@primary-color&quot;: &quot;#FFB6C1&quot;,
+    &quot;@link-color&quot;: &quot;#FFB6C1&quot;,
+    &quot;@btn-primary-bg&quot;: &quot;#FFB6C1&quot;
+  })
+  .then(() =&gt; {})
+  .catch(error =&gt; {
+    // message.error(`Failed to update theme`);
+  });
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Javascript this 指向问题]]></title>
+        <id>https://icyfe.github.io/icyblog/post/javascript-this-zhi-xiang-wen-ti/</id>
+        <link href="https://icyfe.github.io/icyblog/post/javascript-this-zhi-xiang-wen-ti/">
+        </link>
+        <updated>2020-06-17T08:06:55.000Z</updated>
+        <content type="html"><![CDATA[<p>关于 this 指向肯定遇到过许许多多的奇怪问题，这都是因为没弄清楚它的指向导致一些调用的错误，下面总结先 this 的指向。</p>
+<h2 id="1谁调用了它this-就指向谁当是全局调用且为非严格模式时-this-指全局在浏览器环境下指向-window否则是-undefined"><strong>1.谁调用了它，this 就指向谁，当是全局调用且为非严格模式时 this 指全局(在浏览器环境下指向 window)，否则是 undefined</strong></h2>
+<p>举个栗子<br>
+非严格模式</p>
+<pre><code class="language-js">var value = 'global scope';
+function a() {
+  console.log(this.value);
+}
+a(); // global scope
+</code></pre>
+<p>严格模式</p>
+<pre><code class="language-js">'use strict';
+var value = 'global scope';
+function a() {
+  console.log(this.value);
+}
+a(); // undefined
+</code></pre>
+<p>在浏览器中全局的 this 默认是 window， 因此 a()在全局中被调用相当于是 window.a，谁调用它 this 就指向谁，因此这里打印出全局变量的'global scope'<br>
+在看一个栗子：</p>
+<pre><code class="language-js">var value = 'global scope';
+var o = {
+  value: 'local scope',
+  a: function() {
+    console.log(this.value);
+  }
+};
+
+o.a(); //local scope
+</code></pre>
+<p>这里通过创建一个 o 实例对象，通过 o 调用 this 的指向就指向 o。</p>
+<h2 id="2call-apply-bind-改变this指向"><code>2.call, apply, bind 改变this指向</code></h2>
+<p>在 js 中有三种方式可以显示的改变 this 的指向，call 和 apply 除了传参不一样其本质是一样的，call 和 apply 第一个参数都是要传入将要指向的 this, call 后面可接多个参数，apply 则是第二个参数接收一个参数的集合，也就是数组。</p>
+<pre><code class="language-js">fn.call(this, arg1, ag2, ag3);
+fn.apply(this, [...arg]);
+</code></pre>
+<p>bind 的本质是封装了 apply 它返回的一个函数。<br>
+来看几个栗子:</p>
+<pre><code class="language-js">var value = 'global scope';
+function b() {
+  console.log(this.value);
+}
+var o = {
+  value: 'local scope',
+  a: function() {
+    console.log(this.value);
+  }
+};
+
+b.call(o); //local scope
+b.apply(o); //local scope
+let c = b.bind(o);
+c(); //local scope
+</code></pre>
+<p>上面几个栗子都是改变了 this 的指向，原本在非严格模式下指向全局的 this 应该输出'global scope'，改变 this 指向后指向了传入的 o 对象因此打印出'local scope'<br>
+call 和 apply 的原理其实是在传入的对象增加要执行的函数，从而改变 this 的指向，执行完后在删除函数，这个后面会有一章节来仿写 call,apply 和 bind 函数。</p>
+<h2 id="3new-关键字">3.new 关键字</h2>
+<p>通过 new 关键字调用函数会以构造函数的形式调用会发生以下步骤 1.创建一个对象 2.将对象的实例原型指向构造函数的原型<br>
+<strong>3.将对象的 this 绑定到构造函数并创建一系列属性</strong> 4.返回这个对象<br>
+因此我们可以 new 关键字调用的函数也会改变 this 的指向，它指向创建出来的实例对象<br>
+举个栗子：</p>
+<pre><code class="language-js">var value = 'global scope';
+function A() {
+  this.value = 'local scope';
+  this.sayValue = function() {
+    console.log(this.value);
+  };
+}
+
+let b = new A();
+b.sayValue();
+</code></pre>
+<p>通过 new 内部发生的过程我们就可以知道上面的栗子将 this 指向了新创建出来的实例 b 因此打印 value 时候就打印出'local scope'</p>
+<h2 id="4-箭头函数的-this">4、箭头函数的 this</h2>
+<p>在 ES6 中新增了箭头函数用法，它本身没有绑定 this，它的 this 指向是离的它最近的一个普通函数所绑定的 this，在 ES5 之前我们在一些匿名函数为了防止 this 指向丢失我们可能会这样绑定 this</p>
+<pre><code class="language-js">function a() {
+  let self = this;
+  this.value = 'Hi!';
+  setTimeout(function() {
+    console.log(self.value);
+  }, 0);
+}
+</code></pre>
+<p>在 ES6 中这样就可以了</p>
+<pre><code class="language-js">function a() {
+  this.value = 'Hi!';
+  setTimeout(() =&gt; {
+    console.log(this.value);
+  }, 0);
+}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p><code>只要记住一点。在箭头函数中的this的指向永远是离它最近的一个普通函数所绑定的this,如上栗子离匿名函数最近的普通函数是 a函数， 当a被谁调用时 this就指向谁</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[手写简单版符合 PromiseA+规范的 Promise]]></title>
+        <id>https://icyfe.github.io/icyblog/post/shou-xie-jian-dan-ban-fu-he-promiseagui-fan-de-promise/</id>
+        <link href="https://icyfe.github.io/icyblog/post/shou-xie-jian-dan-ban-fu-he-promiseagui-fan-de-promise/">
+        </link>
+        <updated>2020-06-17T08:05:52.000Z</updated>
+        <content type="html"><![CDATA[<p>今天手写一个符合 promiseA+规范的 promise，这个知识点可能快被写烂了吧，但还是作为学习比较加深自己对 Promise 的理解。<br>
+先来了解 Promise 是什么，promise 的出现为了解决什么问题，最后我们根据 promiseA+自己手写实现一个 promise</p>
+<h2 id="一-promise-是什么">一、Promise 是什么？</h2>
+<p>贴一段 MDN 的介绍<br>
+<code>Promise 对象用于表示一个异步操作的最终状态（完成或失败），以及其返回的值..... Promise 对象是一个代理对象（代理一个值），被代理的值在Promise对象创建时可能是未知的。它允许你为异步操作的成功和失败分别绑定相应的处理方法（handlers）。 这让异步方法可以像同步方法那样返回值，但并不是立即返回最终执行结果，而是一个能代表未来出现的结果的promise对象。</code><br>
+通俗点来说就是解决异步操作问题的一个类。<br>
+<a href="url">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise</a></p>
+<h2 id="二-promise-的出现为了解决什么问题">二、Promise 的出现为了解决什么问题？</h2>
+<p>相信接触过异步操作的同学都经历过回调地狱，一个异步接着一个异步如下所示</p>
+<pre><code class="language-js">asyncFunc1(opt, (...args1) =&gt; {
+  asyncFunc2(opt, (...args2) =&gt; {
+    asyncFunc3(opt, (...args3) =&gt; {
+      asyncFunc4(opt, (...args4) =&gt; {
+        // some operation
+      });
+    });
+  });
+});
+</code></pre>
+<p>这样的代码不仅难以维护，可读性也差简直痛苦，Promise 的出现通过链式调用可以很大程度上解决回调地狱的问题，通过 Promise 可以写成这样</p>
+<pre><code>asyncFunc1('...“).then(res=&gt; {
+    return asyncFunc2(res);
+}).then(res =&gt; {
+    return asyncFunc3(res);
+}).then(res =&gt; {
+   return asyncFunc4(res);
+}).then(res =&gt;{
+console.log(res)
+})
+</code></pre>
+<p>这样的每一次的 then 的返回值都可以作为下一个的异步操作的参数，这样回调地狱的问题就轻易解决了。<br>
+本文对 Promise 的用法不多做介绍跟多的用法可看阮一峰老师的 es6 入门<a href="url">http://es6.ruanyifeng.com/</a></p>
+<h2 id="三-手写一个符合-promisea规范的-promise">三、手写一个符合 PromiseA+规范的 Promise</h2>
+<p>开始写之前贴上 PromiseA+规范的链接 <a href="url">http://www.ituring.com.cn/article/66566</a><br>
+<strong>1、首先 Promise 有三种状态等待(pending),<br>
+成功态(fulfilled,规范中称为执行态我认为解释为成功态或者完成态更好理解),<br>
+失败(rejected),并且只能为以上三种状态的其实一种，等待态可改变为成功态或者失败态，成功态有成功的值不能改变为其他任何状态，失败态有失败的值不能改变为其他任何状态。<br>
+2、Promise 接受一个函数作为参数文档中称为‘executor’翻译过来就是执行者说明在构造函数一调用的时候就被执行，这个 executor 函数有两个参数分别是 resolve,reject，当 executor 函数中的 resovle 函数被调用时状态改变为成功态(fulfiiled)，reject 函数被调用时状态就改变为失败态(rejected),当 executor 函数执行出错时就直接调用 reject 方法，因此我们要捕获 executor 函数执行时的异常。</strong></p>
+<p>根据这两条我们写初始的代码</p>
+<pre><code class="language-js">class Promise {
+  constructor(executor) {
+    //状态
+    this.status = 'pending';
+    //失败的值
+    this.reason = null;
+    //成功的值
+    this.value = null;
+
+    let resolve = value =&gt; {
+      if (this.status == 'pending') {
+        this.status = 'fulfilled';
+        this.value = value;
+      }
+    };
+    let reject = reason =&gt; {
+      if (this.status == 'pending') {
+        this.status = 'rejected';
+        this.reason = reason;
+      }
+    };
+    //当调用构造函数时就调用executor函数并捕获异常
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+}
+</code></pre>
+<p><strong>3、promiseA+规定必须要有一个 then 方法可以访问其成功或失败时候的返回值，then 方法接受两个参数分别为 onFulfilled 和 onRejectd，并且还规定了当两个参数不是函数时其值被忽略</strong><br>
+<strong>4、当 onFulfilled 和 onRejected 是函数时，onFulfilled 函数只能被调用一次，在 promise 执行成功结束后，并将 promise 的返回值作为终值，onReject 函数只能被调用一次，当 promise 被拒绝执行后其必须被调用，其第一个参数为 promise 的据因。</strong></p>
+<p>根据这两条我们来写 then 的初始方法</p>
+<pre><code class="language-js">//then方法接受两个参数onFulfilled,onRejected
+ then(onFulfilled, onRejected) {
+     //如果非函数就直接返回值
+     onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : v =&gt; v
+     // 错误的就直接抛错不在执行
+     onRejected = typeof onRejected == 'function' ? onRejected : err =&gt; { throw err }
+     //成功后立即执行,并将其结果作为参数
+     if (this.status == 'fulfilled') {
+         onFulfilled(this.value)
+     }
+     // 失败后立即执行,并将其拒因作为参数
+     if (this.status == 'rejected') {
+         onRejected(this.reason)
+     }
+ }
+}
+</code></pre>
+<p><strong>5、then 方法可以被同一个 promise 多次调用，如下所示<br>
+let p = new Promise()<br>
+p.then()<br>
+p.then()<br>
+当 promise 成功执行时，所有 onFulfilled 需按照其注册顺序依次回调<br>
+当 promise 被拒绝执行时，所有的 onRejected 需按照其注册顺序依次回调</strong></p>
+<p>以上代码只能解决同步问题，所以当我们异步执行的时候我们要有两个队列(当多次调用的时候)在等待状态的时候分别存放成功和失败时候的回调，并在状态改变的时候依次取出来执行</p>
+<p>在构造函数添加代码</p>
+<pre><code class="language-js">//成功回调存放
+this.resolvedCallbacks = [];
+//失败回调存放
+this.rejectedCallbacks = [];
+let resolve = value =&gt; {
+  if (this.status == 'pending') {
+    this.status = 'fulfilled';
+    this.value = value;
+    //依次取出回调执行
+    this.resolvedCallbacks.map(cb =&gt; cb());
+  }
+};
+let reject = reason =&gt; {
+  if (this.status == 'pending') {
+    this.status = 'rejected';
+    this.reason = reason;
+    //依次取出回调执行
+    this.rejectedCallbacks.map(cb =&gt; cb());
+  }
+};
+</code></pre>
+<p>在 then 函数添加 pending 状态判断</p>
+<pre><code class="language-js">//当时等待状态时候存放失败或成功的回调
+if (this.status == 'pending') {
+  this.rejectedCallbacks.push(() =&gt; {
+    onRejected(this.reason);
+  });
+  this.resolvedCallbacks.push(() =&gt; {
+    onFulfilled(this.value);
+  });
+}
+</code></pre>
+<p><strong>6、规范规定 then 函数必须返回一个 promise 对象，因为我们知道规范中的 promise 是和链式调用的如 p.then().then()这样形式的调用用来解决回调地狱的问题，所以我们要返回一个 promise 对象可供链式调用，规范中称它为 promise2 <code>promise2 = promise1.then(onFulfilled, onRejected);</code><br>
+7、then 会有个返回值规范中称它为 x 并作为下一个 promise 的参数进行传递，<br>
+这个 x 值就是 onFulfilled 或者 onRejected 执行后的返回值，<br>
+并且这个 x 值需要做判断，判断的函数为 resolvePromise，<br>
+如果 x 是普通值就直接作为 promise2 的终值，如果 x 是 promise 就取得 x 的最终状态作为 promise2 的结果。 resolvePromise 有四个参数 promise2,x,resolve,reject,其中 resolve 和 reject 为 promise2 的。</strong></p>
+<p>根据这两条得出以下代码</p>
+<pre><code class="language-js"> //then方法接受两个参数onFulfilled,onRejected
+    then(onFulfilled, onRejected) {
+        // 返回promise对象
+        let promise2 = new Promise((resolve, reject) =&gt; {
+            //如果非函数就直接返回值
+            onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : v =&gt; v
+            // 错误的就直接抛错不在执行
+            onRejected = typeof onRejected == 'function' ? onRejected : err =&gt; { throw err }
+            //成功后立即执行,并将其结果作为参数
+            if (this.status == 'fulfilled') {
+                //x 为onFufilled的值
+                let x = onFulfilled(this.value)
+                // 判断x的函数
+                resolvePromise(promise2, x, resolve, reject)
+            }
+            // 失败后立即执行,并将其拒因作为参数
+            if (this.status == 'rejected') {
+                onRejected(this.reason)
+                resolvePromise(promise2, x, resolve, reject)
+            }
+            //当时等待状态时候存放失败或成功的回调
+            if (this.status == 'pending') {
+                this.rejectedCallbacks.push(() =&gt; {
+                    let x = onRejected(this.reason)
+                    resolvePromise(promise2, x, resolve, reject)
+                })
+                this.resolvedCallbacks.push(() =&gt; {
+                    onFulfilled(this.value)
+                    resolvePromise(promise2, x, resolve, reject)
+                })
+            }
+        })
+        return promise2
+    }
+</code></pre>
+<p><strong>8、resolvePromise 实现的功能主要就是判断 x 的值规范规定了以下几点 1.如果 x 指向同一对象就抛错，防止相互引用的情况出现，并且 x 不为空， 2.如果 x 是普通值就直接 resolve 3.如果 x 是函数或者对象(包括 promise)<br>
+.定义 then 并使得 then = x.then()----promiseA+原文‘Otherwise, if x is an object or function,Let then be x.then’，并捕获取 then 过程的异常如果出错就直接 reject()<br>
+.如果 then 是函数就调用 call 执行 this 为当前的 x,后面分别是成功和失败的回调，如果 then 非函数就直接 resolve<br>
+.并且成功和失败只能被调用一次，因此我们要定义一个 called 来标记是否已经执行过成功或失败的回调，如果成功的返回值仍然是 Promise 就递归调用 resovlePromise 函数</strong></p>
+<p>根据这条我们来写 resovlePromise 函数</p>
+<pre><code class="language-js">function resolvePromise(promise2, x, resolve, reject) {
+  if (x == promise2) {
+    return new TypeError('Error');
+  }
+  let called = false; //定义标志，防止重复调用
+  // x 不能为空，且为对象或者函数时，为普通值就直接resovle
+  if (x != null &amp;&amp; (typeof x == 'object' || typeof x == 'function')) {
+    //定义then 并捕获异常
+    try {
+      let then = x.then();
+      //如果then为函数，默认为promise对象就继续递归解析
+      if (typeof then == 'function') {
+        then.call(
+          x,
+          y =&gt; {
+            //只允许被调用一次
+            if (called) return;
+            called = true;
+            resolvePromise(promise2, y, resolve, reject);
+          },
+          err =&gt; {
+            if (called) return;
+            called = true;
+            reject(err);
+          }
+        );
+      } else {
+        if (called) return;
+        called = true;
+        resolve(x);
+      }
+    } catch (error) {
+      if (called) return;
+      called = true;
+      reject(error);
+    }
+  } else {
+    resolve(x);
+  }
+}
+</code></pre>
+<p>好了这样我们就完成了一个符合规范的 Promise</p>
+<p>附上 all,race,resolve,reject，catch,finlly 代码</p>
+<pre><code class="language-js">Promise.resolve = function(v) {
+  return new Promise((resolve, reject) =&gt; {
+    resolve(v);
+  });
+};
+Promise.reject = function(err) {
+  return new Promise((resolve, reject) =&gt; {
+    resolve(err);
+  });
+};
+Promise.race = function(promises) {
+  return new Promise((resolve, reject) =&gt; {
+    for (let i = 0; i &lt; promises.length; i++) {
+      promises[i].then(resolve, reject);
+    }
+  });
+};
+Promise.all = function(promises) {
+  let arr = [];
+  let index = 0;
+  return new Promise((resolve, reject) =&gt; {
+    for (let i = 0; i &lt; promises.length; i++) {
+      promises[i].then(data =&gt; {
+        addResult(i, data);
+      }, reject);
+    }
+    function addResult(i, data) {
+      if (index == arr.length) {
+        resolve(arr);
+      }
+      index++;
+      arr[i].push(data);
+    }
+  });
+};
+Promise.catch = function(errFn) {
+  return this.then(null, errFn);
+};
+Promise.finally = function(fn) {
+  this.then(
+    () =&gt; {
+      fn();
+    },
+    () =&gt; {
+      fn();
+    }
+  );
+  return this;
+};
+</code></pre>
+<p>完整代码</p>
+<pre><code class="language-js">
+class Promise {
+    constructor(executor) {
+        //状态
+        this.status = 'pending'
+        //失败的值
+        this.reason = null
+        //成功的值
+        this.value = null
+        //成功回调存放
+        this.resolvedCallbacks = []
+        //失败回调存放
+        this.rejectedCallbacks = []
+        let resolve = (value) =&gt; {
+            if (this.status == 'pending') {
+                this.status = 'fulfilled'
+                this.value = value
+                //依次取出回调执行
+                this.resolvedCallbacks.map(cb =&gt; cb())
+            }
+        }
+        let reject = (reason) =&gt; {
+            if (this.status == 'pending') {
+                this.status = 'rejected'
+                this.reason = reason
+                //依次取出回调执行
+                this.rejectedCallbacks.map(cb =&gt; cb())
+            }
+        }
+        //当调用构造函数时就调用executor函数并捕获异常
+        try {
+            executor(resolve, reject)
+        } catch (error) {
+            reject(error)
+        }
+    }
+    //then方法接受两个参数onFulfilled,onRejected
+    then(onFulfilled, onRejected) {
+        // 返回promise对象
+        let promise2 = new Promise((resolve, reject) =&gt; {
+            //如果非函数就直接返回值
+            onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : v =&gt; v
+            // 错误的就直接抛错不在执行
+            onRejected = typeof onRejected == 'function' ? onRejected : err =&gt; { throw err }
+            //成功后立即执行,并将其结果作为参数
+            if (this.status == 'fulfilled') {
+                //x 为onFufilled的值
+                let x = onFulfilled(this.value)
+                // 判断x的函数
+                resolvePromise(promise2, x, resolve, reject)
+            }
+            // 失败后立即执行,并将其拒因作为参数
+            if (this.status == 'rejected') {
+                onRejected(this.reason)
+                resolvePromise(promise2, x, resolve, reject)
+            }
+            //当时等待状态时候存放失败或成功的回调
+            if (this.status == 'pending') {
+                this.rejectedCallbacks.push(() =&gt; {
+                    let x = onRejected(this.reason)
+                    resolvePromise(promise2, x, resolve, reject)
+                })
+                this.resolvedCallbacks.push(() =&gt; {
+                    onFulfilled(this.value)
+                    resolvePromise(promise2, x, resolve, reject)
+                })
+            }
+        })
+        return promise2
+    }
+}
+function resolvePromise(promise2, x, resolve, reject) {
+    if (x == promise2) {
+        return new TypeError('Error')
+    }
+    let called = false //定义标志，防止重复调用
+    // x 不能为空，且为对象或者函数时，为普通值就直接resovle
+    if (x != null &amp;&amp; (typeof x == 'object' || typeof x == 'function')) {
+        //定义then 并捕获异常
+        try {
+            let then = x.then()
+            //如果then为函数，默认为promise对象就继续递归解析
+            if (typeof then == 'function') {
+                then.call(x, y =&gt; {
+                    //只允许被调用一次
+                    if (called) return
+                    called = true
+                    resolvePromise(promise2, y, resolve, reject)
+                }, err =&gt; {
+                    if (called) return
+                    called = true
+                    reject(err)
+                })
+            } else {
+                if (called) return
+                called = true
+                resolve(x)
+            }
+        } catch (error) {
+            if (called) return
+            called = true
+            reject(error)
+        }
+    } else {
+        resolve(x)
+    }
+}
+Promise.resolve = function (v) {
+    return new Promise((resolve, reject) =&gt; {
+        resolve(v)
+    })
+}
+Promise.reject = function (err) {
+    return new Promise((resolve, reject) =&gt; {
+        reject(err)
+    })
+}
+Promise.race = function (promises) {
+    return new Promise((resolve, reject) =&gt; {
+        for (let i = 0; i &lt; promises.length; i++) {
+            Promise.resolve(promises[i]).then((resolve,reject));
+        }
+    })
+}
+Promise.all = function (promises) {
+    let arr = []
+    let index = 0;
+   let resultarr =[];
+   let count = 0;
+   len asynclen = promises.length
+    return new Promise((resolve, reject) =&gt; {
+        for (let i = 0; i &lt;asynclen ; i++) {
+            promises[i].then((value) =&gt; {
+                count++;
+                resultarr.push(value);
+               if(count==asynclen ){
+                      resolve(resultarr)
+                 }
+            }, reject)
+        }
+    })
+}
+Promise.catch = function (errFn) {
+    return this.then(null, errFn);
+}
+Promise.finally = function (fn) {
+    this.then(() =&gt; {
+        fn();
+    }, () =&gt; {
+        fn();
+    });
+    return this;
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[实现一个简单的 MVVM]]></title>
+        <id>https://icyfe.github.io/icyblog/post/shi-xian-yi-ge-jian-dan-de-mvvm/</id>
+        <link href="https://icyfe.github.io/icyblog/post/shi-xian-yi-ge-jian-dan-de-mvvm/">
+        </link>
+        <updated>2020-06-17T08:05:10.000Z</updated>
+        <content type="html"><![CDATA[<p>用过 vue 的都知道双向绑定，双向绑定就是当 view 的数据改变的时候 data 的数据也会同时变化。vue 的双向绑定其实就是基于 Object.defineProperty 的数据劫持加上发布-订阅模式实现的。我们基于这两点来理一下实现的思路，我们要一个数据的观察者 observe 来实现对数据的劫持， 当数据变化的时候，我们要有一个事件的派发者通知订阅者实时更新数据，同时我们应该还要有一个 complie 来进行指令解析，将这些关联起来，先来看看最终实现的效果<br>
+<img src="https://user-images.githubusercontent.com/44893721/55455070-bc4cdf80-5614-11e9-89ea-fb72997507f3.png" alt="L$IT(BW0 Q %TT7Q A9W_9Y" loading="lazy"><br>
+<img src="https://user-images.githubusercontent.com/44893721/55455171-2f565600-5615-11e9-8b95-5669d8479f31.gif" alt="aaa" loading="lazy"></p>
+<p>首先为了能像 vue 一样调用，我们先实现一个 mvvm 类，里面初始化传入的参数。</p>
+<pre><code class="language-js">class Mvvm {
+  constructor(option) {
+    this.methods = option.methods; //方法
+    this.data = option.data; // 数据
+    this.target = null; //记录watcher
+    this.element = document.getElementById(option.el); //获取根元素
+    this.observe(this, this.data); //设立观察者对data里面的数据进行劫持
+    this.compile(this.element); //指令解析，整合
+  }
+}
+</code></pre>
+<h2 id="observe">Observe</h2>
+<p>Observe 取出 data 中所有的属性并对其进行劫持，在 Mvvm 类中添加 observe 方法</p>
+<pre><code class="language-js">    observe(root, data) {
+        for (let key in data) {
+            this.definedRective(root, key, data[key])
+        }
+    }
+    definedRective(root, key, value) {
+        if (typeof value == 'object') {
+            this.observe(value, value) //如果还有子属性还是对象递归取出
+        }
+        Object.defineProperty(root, key, {
+            set(newVal) {
+             if (value == newVal) return //如果数据没改变就直接返回
+                value = newVal // 记录改变的值
+            },
+            get() {
+                return value
+            }
+        })
+    }
+</code></pre>
+<p>这里 observe 取出 data 中的属性数据，如果子属性还是个对象就进行递归，这样子属性如果发生了变化也能监听的到了。这个部分我们已经可以在数据变化的时候对数据进行拦截，但是我们要有一个事件的接收和派发调度员，让订阅消息的人可以实时的知道数据更新。</p>
+<h2 id="dispatcher">Dispatcher</h2>
+<p>Dispatcher 主要做的事情就是对事件的接受和发布，让监听的人可以实时的知道数据的更新并同步的对 dom 的数据进行更新。</p>
+<pre><code class="language-js">class Dispatcher {
+  constructor() {
+    this.watchers = []; //监听者队列
+  }
+  add(watcher) {
+    this.watchers.push(watcher); //接受监听者
+  }
+  notify(value) {
+    console.log('更新');
+    this.watchers.forEach(watcher =&gt; {
+      watcher.update(value);
+    }); //通知更新
+  }
+}
+</code></pre>
+<p>Dispatcher 其实就相当于一个调度员赋值事件的接受和发布，每当有新的 watcher 就添加进队列，当数据更新时，统一通知这些 watcher 我数据更新啦你也快更新吧。有了调度员，现在缺个订阅的我们来看下 watcher 怎么实现</p>
+<h2 id="watcher">Watcher</h2>
+<p>watcher 其实很简单就做一件事对节点的数据进行更新</p>
+<pre><code class="language-js">class Watcher {
+  constructor(node, type) {
+    this.node = node; //监听的子节点
+    this.type = type; // 子节点类型，不同子节点类型赋值方式不同
+  }
+  update(value) {
+    if (this.type == 'input') {
+      this.node.value = value;
+    }
+    if (this.type == 'text') {
+      this.node.nodeValue = value;
+    }
+  }
+}
+</code></pre>
+<p>现在有了 watcher,和 dispatcher 我们在对数据进行劫持的时候在 set get 中进行事件的发布和订阅</p>
+<pre><code class="language-js">    definedRective(root, key, value) {
+        if (typeof value == 'object') {
+            this.observe(value, value)
+        }
+        const dep = new Dispatcher();//事件派发者
+        Object.defineProperty(root, key, {
+            set(newVal) {
+                if (value == newVal) return //如果数据没改变就直接返回
+                value = newVal // 记录改变的值
+                dep.notify(newVal) //发布事件
+            },
+            get() {
+                console.log('get', value)
+                dep.add(this.target) //添加订阅者
+                return value
+            }
+        })
+    }
+</code></pre>
+<p>最后实现 complie 对 v-model 等指令进行解析，并新建订阅者</p>
+<pre><code class="language-js">    compile(element) {
+        const childNodes = element.childNodes;//获取所有子节点
+        for (let node of childNodes) {
+            if (node.nodeType == 1) {// nodetype属性在文末最后会附上解释，这里的1代表普通元素
+                const attrs = node.attributes;//获取所有节点属性
+                for (let attr of attrs) {
+                    if (attr.name == 'v-model') { //解析v-model的指令
+                        const name = attr.value
+                        node.addEventListener('input', (e) =&gt; {
+                            this[name] = e.target.value //监听数据input数据改变
+                        })
+                        this.target = new Watcher(node, 'input')
+                        this[name] //触发劫持添加监听,一定要写这一句，因为这句其实就是获取data里面的值，一旦获取data的值就会触发get 将订阅者添加进订阅者集合
+                    }
+                    if (attr.name == '@click') {
+                        const name = attr.value
+                        node.addEventListener('click', this.methods[name].bind(this))
+                    }
+                }
+            }
+            if (node.nodeType == 3) {//nodeType等于3表示文本元素
+                const reg = /\{\{(.*)\}\}/
+                const match = node.nodeValue.match(reg)
+                if (match) {
+                    const name = match[1].trim()
+                    this.target = new Watcher(node, 'text')
+                    node.nodeValue = this.data[name]
+                    this[name] //触发劫持添加监听
+                }
+            }
+        }
+    }
+</code></pre>
+<h2 id="nodetype-属性">nodetype 属性</h2>
+<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/55458438-9d077f80-561f-11e9-96c0-1e9948093bea.jpg" alt="1554273976(1)" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[作用域与作用域链]]></title>
+        <id>https://icyfe.github.io/icyblog/post/zuo-yong-yu-yu-zuo-yong-yu-lian/</id>
+        <link href="https://icyfe.github.io/icyblog/post/zuo-yong-yu-yu-zuo-yong-yu-lian/">
+        </link>
+        <updated>2020-06-17T08:04:34.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="什么是作用域">什么是作用域</h2>
+<p>作用域是变量和函数可影响的范围，也就是当前执行环境的变量和函数可见性。其实也就是执行环境当前变量对象可访问范围，即作用域控制着当前变量对象可见性和生命周期。上面一段话可能有点绕，说白了就是你定义的变量和函数能给被访问的范围，一般分为全局作用域和函数作用域，在 ES6 又新增了块级作用域<br>
+<strong>全局作用域</strong></p>
+<pre><code class="language-js">var a = 'global scope';
+function b() {
+  console.log(a); // 'global scope'
+}
+b();
+</code></pre>
+<p>上面一段代码 在全局定义的变量在哪都能访问的到，它的作用域就是全局的<br>
+<strong>函数作用域</strong></p>
+<pre><code class="language-js">var a = 'global scope';
+function b() {
+  console.log(a); // 'global scope'
+  var c = ' local scope';
+  console.log(c); // 'local scope'
+}
+b();
+console.log(c); // error
+</code></pre>
+<p>这段代码在函数 b 中定义了 c 那么他的作用范围就只限于函数 b，在全局是无法访问到的，因此它的作用域是局部的。</p>
+<h2 id="什么是作用域链">什么是作用域链</h2>
+<p>由一个个作用域的变量对象所构成的链式对象，它决定了当前执行上下文有权访问的变量和函数有序的访问。<br>
+在高程三第七章有一段话大概意思如下：<br>
+<strong>当我们创建函数时，内部会创建一个[[scope]]属性，它包含了全局变量对象的作用域链，当函数执行的时会通过复制函数的[[scope]]构建起当前的作用域链条，并将当前 AO 对象压入作用域的最前端</strong></p>
+<pre><code class="language-js">var global = 'global scope';
+function foo() {
+  var local = 'local scope';
+}
+foo();
+</code></pre>
+<p>我们用上面的代码模拟下上述过程，当上面代码执行的时候首先会创建全局执行上下文并压入执行栈</p>
+<pre><code class="language-js">ECstack = [
+globalcontext.
+]
+</code></pre>
+<p>当遇到函数创建时函数内部创建[[scope]]属性，它包含了全局对象的作用域链。</p>
+<pre><code class="language-js">foo.scope = [globalscope.VO];
+</code></pre>
+<p>当函数执行的时候创建执行上下文并压入栈顶</p>
+<pre><code class="language-js">ECstack = [
+foocontext,
+globalcontext.
+]
+</code></pre>
+<p>我们前面提到过函数执行的时候分为两个阶段，编译阶段和执行阶段，编译阶段复制 f 函数创建时候的[[Scope]]对象并利用 argumen 初始化 AO 对象</p>
+<pre><code class="language-js">foocontext = {
+ AO:{
+  argument:{
+   length:0
+    },
+   local:undefined,
+  },
+ Scope:foo.[[Scope]]
+}
+</code></pre>
+<p>当执行阶段的时候为 AO 对象赋值，并将 AO 对象压入作用域链的最前端</p>
+<pre><code class="language-js">foocontext = {
+  AO: {
+    argument: {
+      length: 0
+    },
+    local: 'local scope'
+  },
+  Scope: [AO, [[Scope]]]
+};
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>就这样作用域链中的下一个变量对象来自包含（外部）环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。<br>
+当我们查找一个变量的时候就会从自身开始查找，如果没查找到就会顺着作用域链网上查找父级的变量对象知道找到为止，否则就报错。<br>
+下面举一个高程三中的栗子</p>
+<pre><code class="language-js">var color = 'blue';
+function changeColor() {
+  var anotherColor = 'red';
+  function swapColors() {
+    var tempColor = anotherColor;
+    anotherColor = color;
+    color = tempColor;
+    // 这里可以访问 color、anotherColor 和 tempColor
+  }
+  // 这里可以访问 color 和 anotherColor，但不能访问 tempColor
+  swapColors();
+}
+// 这里只能访问 color
+changeColor();
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/54472457-9d241480-4803-11e9-9aa6-2ec52f8dd16d.jpg" alt="1552722706(1)" loading="lazy"></figure>
+<p><strong>矩形表示特定的执行环境。其中，内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。这些环境之间的联系是线性、有次序的。每个环境都可以向上搜索作用域链，以查询变量和函数名；但任何环境都不能通过向下搜索作用域链而进入另一个执行环境。对于这个例子中的 swapColors() 而言，其作用域链中包含 3 个对象： swapColors() 的变量对象、 changeColor() 的变量对象和全局变量对象。 swapColors() 的局部环境开始时会先在自己的变量对象中搜索变量和函数名，如果搜索不到则再搜索上一级作用域链。 changeColor() 的作用域链中只包含两个对象：它自己的变量对象和全局变量对象。这也就是说,它不能访问 swapColors() 的环境</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ 执行上下文]]></title>
+        <id>https://icyfe.github.io/icyblog/post/zhi-xing-shang-xia-wen/</id>
+        <link href="https://icyfe.github.io/icyblog/post/zhi-xing-shang-xia-wen/">
+        </link>
+        <updated>2020-06-17T08:04:09.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="什么是执行栈"><strong>什么是执行栈？</strong></h2>
+<p>执行栈是管理代码运行时产生的一系列执行上下文，它遵循 LIFO(LAST IN FIRST OUT 后进先出)原则来保证代码有序的运行。<br>
+执行上下文一般分文三种： 1.全局执行上下文 2.函数执行上下文<br>
+2.evel 执行上下文(一般不推荐使用)</p>
+<p>当程序开始运行时全局执行上下文会压入执行栈的底部,遇到可函数执行时就创建函数执行上下文继续压入栈，执行完毕时就出栈。下面举个栗子：</p>
+<pre><code class="language-js">function c() {
+  console.log('c');
+}
+function b() {
+  console.log('b');
+  c();
+}
+function a() {
+  console.log('a');
+  b();
+}
+a();
+</code></pre>
+<p>试着想一下这段代码的执行过程，我们用 ECstack 模拟执行栈的过程，在 ECstack 的底部总是会有一个全局的执行上下文，所以最初的执行栈张这样</p>
+<pre><code class="language-js">ECstack = [gloabcontext];
+</code></pre>
+<p>我们按上面描述的<strong>当遇到可执行函数就创建对应的上下文压入栈底，遵循后进先出原则出栈</strong></p>
+<pre><code class="language-js">//当执行函数a时，创建执行上下文压入栈底
+ECstack.push(&lt;fun&gt; a)
+//在a里又执行了函数b,就紧接着创建b的执行上下文压入栈底
+ECstack.push(&lt;fun&gt; b)
+//最后在b里又又执行c函数，再次创建c的执行上下文压入栈底
+ECstack.push(&lt;fun&gt; c)
+//到c 可算没有了， 我们遵循后进先出原则依次执行完出栈
+ECstack.pop() //c出栈
+ECstack.pop()//b出栈
+ECstack.pop()//a出栈
+</code></pre>
+<p>在举个栗子：</p>
+<pre><code class="language-js">function a() {
+  var value = 'local scope';
+  function b() {
+    console.log(value);
+  }
+  return b();
+}
+a();
+function a() {
+  var value = 'local scope';
+  function b() {
+    console.log(value);
+  }
+  return b;
+}
+a()();
+</code></pre>
+<p>咋一看两段代码其实差不多，但是他的执行过程是不一样的，为了更好的理解执行栈我们来分析下这两端代码的执行过程<br>
+第一段代码</p>
+<pre><code class="language-js">//a()执行的时候，创建执行上下文入栈
+ECsatck.push(&lt;fun&gt; a)
+//函数a遇到b可执行函数，执行b函数创建可执行上下文入栈
+ECstack.push(&lt;fun&gt; b)
+//后进先出原则b执行完出栈
+ECstack.pop()
+//a执行完出栈
+ECstack.pop()
+</code></pre>
+<p>第二段代码</p>
+<pre><code class="language-js">//a()执行的时候，创建执行上下文入栈
+ECsatck.push(&lt;fun&gt; a)
+// a执行完后返回了b函数，注意这里没有直接执行而是直接返回了b,所有没有创建b函数的上下文，a执行完直接出栈
+ECstack.pop() //a出栈
+//在外部返回的b函数被执行， 创建b的执行上下文，压入栈，
+ECstack.push(&lt;fun&gt; b)
+//b执行完出栈
+ECstack.pop()
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[原型与原型链]]></title>
+        <id>https://icyfe.github.io/icyblog/post/yuan-xing-yu-yuan-xing-lian/</id>
+        <link href="https://icyfe.github.io/icyblog/post/yuan-xing-yu-yuan-xing-lian/">
+        </link>
+        <updated>2020-06-17T08:03:37.000Z</updated>
+        <content type="html"><![CDATA[<p>一直在学习却没有系列的总结过知识点，从这篇开始总结下一些知识点，这次总结的是 js 中的原型与原型链</p>
+<p>开写之前先上一张图，接下来的概念基本上都会围绕这张图来讲<br>
+<img src="https://user-images.githubusercontent.com/44893721/53714411-3577dc00-3e89-11e9-8128-49f13b226f45.png" alt="1 2rwcm 1 o 2h 8xf" loading="lazy"></p>
+<h2 id="什么是原型"><strong>什么是原型？</strong></h2>
+<p>引用红宝书中的一段话：</p>
+<pre><code>无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype
+属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个 constructor
+（构造函数）属性，这个属性包含一个指向 prototype 属性所在函数的指针。
+</code></pre>
+<p>简单点来说<strong>只要是函数就会有一个 prototype(原型)属性它是一个指针</strong>，它指向的是一个对象这个对象就是函数的原型对象，这个对象会默认获得一个 constructor(构造函数）的属性指向 prototype 指针所在的函数，<strong>当我们通过 new 关键字调用函数时就是通过调用构造函数的方式去创建一个对象,这时候会对象实列上面会自动包含一个[[Prototype]]指针指向构造函数的原型对象</strong>，一般[[Prototype]]在浏览器中的实现长这样<strong>proto</strong>。<br>
+其实这就是开头图的第一部分<br>
+<img src="https://user-images.githubusercontent.com/44893721/53715365-85a46d80-3e8c-11e9-8246-26812203fa03.png" alt="ej6h 45puxz 0nla66m 7f" loading="lazy"></p>
+<p>来梳理一下，一下冒出了这么多个属性感觉有点绕 1.函数与函数原型通过<strong>prototype</strong>属性链接， 函数原型的<strong>construtor</strong>属性指向构造函数 2.对象实例与原型对象通过实力的****proto****属性链接。</p>
+<h2 id="原型模式的作用">原型模式的作用</h2>
+<p>说了这么多这个原型到底有什么用呢？<br>
+再次引用红宝书中的一段话</p>
+<pre><code>我们创建的每个函数都有一个 prototype （原型）属性，这个属性是一个指针，指向一个对象，
+而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，那
+么 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以
+让所有对象实例共享它所包含的属性和方法
+</code></pre>
+<p>简单描述下这里的让所有实例可以共享原型对象的属性和方法这句话，当我们在原型对象上创建方法时像下面这样：</p>
+<pre><code class="language-js">function Person() {}
+Person.prototype.sayHi = function() {
+  console.log('Hi!');
+};
+const p = new Person();
+p.sayHi(); //'Hi!'
+</code></pre>
+<p>这段代码我们明明在 Person 中没有定义 sayHi 但是却成功的打印出了'Hi'， 这是因为当对象实例在查找属性时，会优先在本身实例中查找，如果没有查找到就会顺着原型指针指向的原型对象继续查找属性，最终找到了就打印出了'Hi'</p>
+<p>不知道大家有没有发现，我们几乎所有的对象都可以调用 toString 或者 valueOf()方法，比如上面的所示代码也可以调用 toString()</p>
+<pre><code class="language-js">p.toString(); // function Person...
+</code></pre>
+<p>这里不经有个疑问，为什么 Person 的实例没有定义 toString()，原型对象上也没有定义 toString 方法，怎么就调用成功了呢？再次引用红包书的一段话</p>
+<pre><code>大家要记住，所有函数的默认原型都是 Object 的实例，因此默认原
+型都会包含一个内部指针
+</code></pre>
+<p>这里不禁恍然大悟，原来所有的原型对象默认是 Object 的实例，<strong>那么就是说原型对象也会有一个</strong>proto<strong>属性它默认指向 Object 的原型对象，因为 Object 对象上默认定义了一些属性如 toString(),valueOf()等，所以上面当我们调用 p.toString() 在本身实例没找到就会顺着原型去查找，原型对象上没有的时候再次顺着原型对象的</strong>proto<strong>查找，最终找到并执行因此 Object 是所有原型的尽头，还有一点 Object 的原型指向空所以当 Object 都查找不到属性的时候就会报错</strong>，由一系列的原型指针连起来的就组成了原型链。</p>
+<p>这里也就是开头图的第二部分<br>
+<img src="https://user-images.githubusercontent.com/44893721/53717226-71fc0580-3e92-11e9-98a9-824891658bf4.png" alt="image" loading="lazy"></p>
+<p>最后我们来看看最后一部分</p>
+<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/53717251-86400280-3e92-11e9-8a3b-07284fee1f37.png" alt="image" loading="lazy"></figure>
+<p>通常我们定义函数时都是这样定义的</p>
+<pre><code class="language-js">function Person(a, b) {
+  return a + b;
+}
+</code></pre>
+<p>但是殊不知也算可以这样定义的<br>
+<code>let Person = new Function('a','b','return a+b')</code><br>
+这样的写法等价与上面的写法，因此每个函数其实也是 Function 构造函数的实例，所以也遵循以上所描述拥有一系列原型属性，所以我们常常会调用 call 和 apply 的方法就是通过 Function 原型对象上继承来的。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ 数组扁平化]]></title>
+        <id>https://icyfe.github.io/icyblog/post/shu-zu-bian-ping-hua/</id>
+        <link href="https://icyfe.github.io/icyblog/post/shu-zu-bian-ping-hua/">
+        </link>
+        <updated>2020-06-17T08:02:49.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="有这么一个数组-var-arr-1-2-2-3-4-5-5-6-7-8-9-11-12-12-13-14-10">有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];</h2>
+<h2 id="要求将他扁平化并按升序排列">要求将他扁平化，并按升序排列</h2>
+<p><strong>什么是扁平化？</strong><br>
+就是转换成这样<br>
+[[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10] =&gt;[1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10]</p>
+<p><strong>方法一：</strong></p>
+<pre><code class="language-js">function flatAndsort(arr) {
+  return arr
+    .toString()
+    .split(',') //拍平数组(但是有个不好的地方就是会将数字类型转换成字符串类型)
+    .sort((a, b) =&gt; {
+      return a - b; //升序排序
+    })
+    .map(item =&gt; {
+      return parseInt(item); // 因为之前转换成了字符串类型我们转换回来
+    });
+}
+//[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
+</code></pre>
+<p><strong>方法二：</strong></p>
+<pre><code class="language-js">function flat(arr) {
+  return [].concat(
+    ...arr.map(item =&gt; {
+      return Array.isArray(item) == true ? flat(item) : item;
+    })
+  );
+}
+function sort(a, b) {
+  return a - b;
+}
+
+let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
+</code></pre>
+<p><strong>方法三</strong></p>
+<pre><code class="language-js">function flat(arr) {
+  return arr.reduce((pre, current) =&gt; {
+    return pre.concat(current.constructor == Array ? flat(current) : current);
+  }, []);
+}
+function sort(a, b) {
+  return a - b;
+}
+let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
+</code></pre>
+<p><strong>方法四(完全 ES6 方法)</strong></p>
+<pre><code class="language-js">var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+
+let c = arr.flat(4).sort((a, b) =&gt; {
+  return a - b;
+});
+</code></pre>
+<p>Array.flat()函数是将数据扁平化的一个函数，它接收一个参数，depath 决定数组嵌套的深度，这里例深度是 4 所以我们传 4</p>
+<h2 id="最后在增加一个需求将扁平化升序排列的数组去重如何实现">最后在增加一个需求，将扁平化升序排列的数组去重如何实现？**</h2>
+<p>ES5:</p>
+<pre><code class="language-js">let list = c.filter((item, index, list) =&gt; {
+  return list.indexOf(item) == index;
+});
+</code></pre>
+<p>ES6:</p>
+<pre><code class="language-js">[...new Set([1, 2, 2, 3, 4, 5])]; // 12345
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[变量对象]]></title>
         <id>https://icyfe.github.io/icyblog/post/bian-liang-dui-xiang/</id>
@@ -74,189 +1267,6 @@ a(1);
 function 声明的重名了将不会影响到已经声明的函数，会跳过，其他通过 var 声明的会初始化为<br>
 undefined 2. 执行阶段:这个阶段会再次对变量进行修改，进行相应的赋值，对任何已经有的值都会进行覆盖。列<br>
 如函数声明</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数万条数据优化]]></title>
-        <id>https://icyfe.github.io/icyblog/post/shu-wan-tiao-shu-ju-you-hua/</id>
-        <link href="https://icyfe.github.io/icyblog/post/shu-wan-tiao-shu-ju-you-hua/">
-        </link>
-        <updated>2020-06-17T06:25:12.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="当一个页面的列表有大量数据如有-100000-条如何优化渲染">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</h2>
-<p>当我们将 10W 条全部在页面加载的时候渲染出来，可以很明显的感受到加载速度缓慢并且可以看到 DOM 树非常非常的长当快速上下滚动时候，偶尔还会卡顿，下面我们用代码实现下这里用 vue 实现</p>
-<pre><code class="language-vue">&lt;template&gt;
-  &lt;div class=&quot;list-view&quot;&gt;
-    &lt;!-- @scroll=&quot;handleScroll($event)&quot; --&gt;
-    &lt;div class=&quot;list-view-item&quot; :style=&quot;{ height: itemHeight + 'px' }&quot; v-for=&quot;item in data&quot; :key=&quot;item.value&quot;&gt;{{ item }}&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-​
-&lt;style&gt;
-.list-view {
-  height: 600px;
-  width: 200px;
-  overflow: auto;
-  position: relative;
-  border: 1px solid #666;
-}
-​ .list-view-phantom {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: -1;
-}
-.list-view-content {
-  position: absolute;
-  height: 600px;
-  z-index: 99;
-  left: 0;
-  right: 0;
-  top: 0;
-}
-​ .list-view-item {
-  padding: 5px;
-  color: #000;
-  height: 30px;
-  width: 200px;
-  line-height: 30px;
-  box-sizing: border-box;
-}
-&lt;/style&gt;
-&lt;script&gt;
-export default {
-  props: {
-    itemHeight: {
-      type: Number,
-      default: 30
-    }
-  },
-  mounted() {},
-  created() {
-    for (let i = 0; i &lt; 100000; i++) {
-      this.data.push('第' + i + '条');
-    }
-  },
-  data() {
-    return {
-      data: []
-    };
-  },
-  methods: {}
-};
-&lt;/script&gt;
-</code></pre>
-<p>效果图<br>
-<img src="https://user-images.githubusercontent.com/44893721/54416187-a9439f80-4739-11e9-8cb5-bf7af0ba85c6.gif" alt="cc" loading="lazy"><br>
-可以很明显的看到当快速滑动时画面的卡顿</p>
-<h2 id="如何优化">如何优化？</h2>
-<p>我们知道屏幕都是有一个可视范围的，我们因此就可以当节点在可视范围时就显示出来，当节点不在可视范围时候就移除，因此我们只要渲染可视范围的节点即可<br>
-画个图<br>
-<img src="https://user-images.githubusercontent.com/44893721/54416872-9762fc00-473b-11e9-87d6-9e0791a86d91.jpg" alt="1552636795(1)" loading="lazy"></p>
-<p>主要分以下几个步骤。 1.计算窗口可视范围，并根据可视范围计算出一屏幕可见的节点。 2.监听滚动计算每次滚动完成后的初始节点和末尾节点 3.根据新的起始节点替换可视区域数据<br>
-具体实现参考了一篇网上的博客具体链接会在下面注明：</p>
-<pre><code class="language-vue">&lt;template&gt;
-  &lt;div class=&quot;list-view&quot; @scroll=&quot;handleScroll($event)&quot;&gt;
-    &lt;div class=&quot;list-view-phantom&quot; :style=&quot;{ height: listheight + 'px' }&quot;&gt;&lt;/div&gt;
-    &lt;div ref=&quot;content&quot; class=&quot;list-view-content&quot;&gt;
-      &lt;div class=&quot;list-view-item&quot; :style=&quot;{ height: itemHeight + 'px' }&quot; v-for=&quot;item in visibleData&quot; :key=&quot;item.value&quot;&gt;{{ item }}&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-export default {
-  props: {
-    itemHeight: {
-      type: Number,
-      default: 30
-    }
-  },
-  mounted() {
-    this.visibleCount = Math.ceil(this.$el.clientHeight / this.itemHeight); //计算可视区域高度可显示数据条目数
-    this.start = 0; //起始数据下标
-    this.end = this.start + this.visibleCount; //末尾最后一条
-    this.visibleData = this.data.slice(this.start, this.end); // 初始化可视区域数据
-  },
-  created() {
-    for (let i = 0; i &lt; 100000; i++) {
-      this.data.push('第' + i + '条'); //初始化10W条数据
-    }
-    this.listheight = this.data.length * 30; //计算10w条元素的总高度
-  },
-  data() {
-    return {
-      data: [],
-      start: 0,
-      end: null,
-      visibleCount: null, //
-      visibleData: [],
-      scrollTop: 0,
-      listheight: ''
-    };
-  },
-  methods: {
-    //滚动监听
-    handleScroll(event) {
-      const scrollTop = this.$el.scrollTop; //监听距离顶部高度
-      const fixedScrollTop = scrollTop - (scrollTop % 30); //修复移动位置不精确问题
-      this.$refs.content.style.webkitTransform = `translate3d(0, ${fixedScrollTop}px, 0)`; //实时位移
-      this.start = Math.floor(scrollTop / 30); //重新计算起始条目下标
-      this.end = this.start + this.visibleCount; // 重新计算末尾小标
-      this.visibleData = this.data.slice(this.start, this.end); //重新装载可视区域数据
-    }
-  }
-};
-&lt;/script&gt;
-&lt;style&gt;
-.list-view {
-  height: 400px;
-  width: 200px;
-  overflow: auto;
-  position: relative;
-  border: 1px solid #666;
-}
-​ .list-view-phantom {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: -1;
-}
-.list-view-content {
-  position: absolute;
-  height: 400px;
-  z-index: 99;
-  left: 0;
-  right: 0;
-  top: 0;
-}
-​ .list-view-item {
-  padding: 5px;
-  color: #000;
-  height: 30px;
-  width: 200px;
-  line-height: 30px;
-  box-sizing: border-box;
-}
-&lt;/style&gt;
-</code></pre>
-<p>来看看实现后的快速滚动的效果<br>
-<img src="https://user-images.githubusercontent.com/44893721/54417786-1c4f1500-473e-11e9-8602-0e19d27c6176.gif" alt="ccc" loading="lazy"><br>
-<img src="https://user-images.githubusercontent.com/44893721/54417902-60421a00-473e-11e9-938e-10e19e226590.gif" alt="aaa" loading="lazy"></p>
-<p>这里主要利用了绝对布局，利用两个绝对布局一个没有任何元素，但高度为所有节点高度的合，利用这个撑开父节点使其滚动条出现，第二个节点高度和可视区域高度一致，当不断滚动的时候利用位移调整位置。<br>
-画个图<br>
-<img src="https://user-images.githubusercontent.com/44893721/54418395-cb402080-473f-11e9-9d0f-7dd49266f1fd.jpg" alt="1552638608(1)" loading="lazy"></p>
-<p>无论如何滑动，可视区域的范围就那么大，因此不会造成页面大量 DOM 节点的存在导致卡顿问题的出现<br>
-参考实现https://zhuanlan.zhihu.com/p/26022258</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello~fine]]></title>
-        <id>https://icyfe.github.io/icyblog/post/hello/</id>
-        <link href="https://icyfe.github.io/icyblog/post/hello/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="记录生活-记录点滴">记录生活， 记录点滴</h2>
 ]]></content>
     </entry>
 </feed>

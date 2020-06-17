@@ -1,0 +1,354 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> less 全局换肤方案 | icyfe</title>
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592382180421">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title=" less 全局换肤方案 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="方案基于 antd UI
+新建 global.less
+新建 global.less 在资源文件夹 aseets/style 下 具体代码如下 虽然这个没什么用但是必须得创建
+@primary-color: &quot;#f52533&qu..." />
+    <meta name="keywords" content="css,javascript" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://icyfe.github.io/icyblog/">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592382180421" alt="">
+  </a>
+  <h1 class="site-title">
+    icyfe
+  </h1>
+  <p class="site-description">
+    好好学习天天向上🌸
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+               less 全局换肤方案
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-17
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/j8JwUg6Og/" class="post-tag">
+                  # css
+                </a>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/less-quan-ju-huan-fu-fang-an.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="方案基于-antd-ui">方案基于 antd UI</h2>
+<h2 id="新建-globalless">新建 global.less</h2>
+<p>新建 global.less 在资源文件夹 aseets/style 下 具体代码如下 虽然这个没什么用但是必须得创建</p>
+<pre><code class="language-js">@primary-color: &quot;#f52533&quot; !important;
+
+</code></pre>
+<h2 id="新建-varsless">新建 vars.less</h2>
+<p>新建 vars.less 在资源文件夹 aseets/style(根据自己项目情况而定)</p>
+<pre><code class="language-js">@import &quot;~antd/lib/style/themes/default.less&quot;; //引入antd的变量文件，实现变量的覆盖
+@primary-color: #1da57a;
+@link-color: #1da57a;
+@btn-primary-bg: #1da57a;
+:root {
+ --primary-color-0: @primary-color; //color.less中加入css原生变量：--PC
+}
+
+</code></pre>
+<h2 id="新建-themcolorjs">新建 themColor.js</h2>
+<p>在项目根目录下 新建 themColor.js 用于动态更改全局主题色</p>
+<pre><code class="language-js">const path = require(&quot;path&quot;);
+const { generateTheme, getLessVars } = require(&quot;antd-theme-generator&quot;);
+
+const options = {
+  stylesDir: path.join(__dirname, &quot;./src/assets/styles&quot;), //对应具体位置
+  antDir: path.join(__dirname, &quot;./node_modules/antd&quot;), //对应具体位置
+  varFile: path.join(__dirname, &quot;./src/assets/styles/vars.less&quot;), //对应具体位置
+  mainLessFile: path.join(__dirname, &quot;./src/assets/styles/global.less&quot;), //对应具体位置
+  themeVariables: [
+    &quot;@primary-color&quot;,
+    &quot;@secondary-color&quot;,
+    &quot;@text-color&quot;,
+    &quot;@text-color-secondary&quot;,
+    &quot;@heading-color&quot;,
+    &quot;@layout-body-background&quot;,
+    &quot;@btn-primary-bg&quot;,
+    &quot;@layout-header-background&quot;
+  ],
+  indexFileName: &quot;index.html&quot;,
+  outputFilePath: path.join(__dirname, &quot;./public/color.less&quot;) //页面引入的主题变量文件
+};
+
+generateTheme(options)
+  .then(less =&gt; {
+    console.log(&quot;Theme generated successfully&quot;);
+  })
+  .catch(error =&gt; {
+    console.log(&quot;Error&quot;, error);
+  });
+</code></pre>
+<h3 id="在模板-indexhtml-就是我们的组件要挂载的-html-中加入以下配置">在模板 index.html (就是我们的组件要挂载的 html) 中加入以下配置</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;%PUBLIC_URL%/favicon.ico&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+    &lt;meta name=&quot;theme-color&quot; content=&quot;#000000&quot; /&gt;
+    &lt;meta
+      name=&quot;description&quot;
+      content=&quot;Web site created using create-react-app&quot;
+    /&gt;
+    &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;logo192.png&quot; /&gt;
+
+    &lt;!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    --&gt;
+    &lt;link rel=&quot;manifest&quot; href=&quot;%PUBLIC_URL%/manifest.json&quot; /&gt;
+    &lt;!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike &quot;/favicon.ico&quot; or &quot;favicon.ico&quot;, &quot;%PUBLIC_URL%/favicon.ico&quot; will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    --&gt;
+    &lt;title&gt;React App&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;!-- 重点是这里 start --&gt;
+    &lt;link
+      rel=&quot;stylesheet/less&quot;
+      type=&quot;text/css&quot;
+      href=&quot;%PUBLIC_URL%/color.less&quot;
+      rel=&quot;external nofollow&quot;
+    /&gt;
+    &lt;script&gt;
+      window.less = {
+        async: false,
+        env: &quot;production&quot;
+      };
+    &lt;/script&gt;
+    &lt;script
+      type=&quot;text/javascript&quot;
+      src=&quot;https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js&quot;
+    &gt;&lt;/script&gt;
+    &lt;!-- 重点是这里 end --&gt;
+    &lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt;
+    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+    &lt;!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the &lt;body&gt; tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="最后修改-packgejson-文件">最后修改 packge.json 文件</h3>
+<p>在 scripts 中加入以下代码</p>
+<pre><code class="language-js">  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node themeColor &amp;&amp; node scripts/start.js&quot;,
+    &quot;build&quot;: &quot;node themeColor &amp;&amp; node scripts/build.js&quot;,
+    &quot;test&quot;: &quot;node scripts/test.js&quot;
+  },
+</code></pre>
+<h2 id="如何更改">如何更改</h2>
+<p>在需要动态更改的地方 使用以下代码就可以了</p>
+<pre><code class="language-js">window.less
+  .modifyVars({
+    &quot;@primary-color&quot;: &quot;#FFB6C1&quot;,
+    &quot;@link-color&quot;: &quot;#FFB6C1&quot;,
+    &quot;@btn-primary-bg&quot;: &quot;#FFB6C1&quot;
+  })
+  .then(() =&gt; {})
+  .catch(error =&gt; {
+    // message.error(`Failed to update theme`);
+  });
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%96%B9%E6%A1%88%E5%9F%BA%E4%BA%8E-antd-ui">方案基于 antd UI</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA-globalless">新建 global.less</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA-varsless">新建 vars.less</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA-themcolorjs">新建 themColor.js</a>
+<ul>
+<li><a href="#%E5%9C%A8%E6%A8%A1%E6%9D%BF-indexhtml-%E5%B0%B1%E6%98%AF%E6%88%91%E4%BB%AC%E7%9A%84%E7%BB%84%E4%BB%B6%E8%A6%81%E6%8C%82%E8%BD%BD%E7%9A%84-html-%E4%B8%AD%E5%8A%A0%E5%85%A5%E4%BB%A5%E4%B8%8B%E9%85%8D%E7%BD%AE">在模板 index.html (就是我们的组件要挂载的 html) 中加入以下配置</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9-packgejson-%E6%96%87%E4%BB%B6">最后修改 packge.json 文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9">如何更改</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://icyfe.github.io/icyblog/post/javascript-this-zhi-xiang-wen-ti/">
+              <h3 class="post-title">
+                Javascript this 指向问题
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'b5c28ec6bd13b8deb4f2',
+    clientSecret: '4f8fb75044211e6b3cfade41f69a78185924b102',
+    repo: 'icyblog',
+    owner: 'icyfe',
+    admin: ['icyfe'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  ok fine~
+  <a class="rss" href="https://icyfe.github.io/icyblog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

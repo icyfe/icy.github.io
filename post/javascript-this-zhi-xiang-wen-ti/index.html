@@ -1,0 +1,301 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Javascript this 指向问题 | icyfe</title>
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592382180421">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Javascript this 指向问题 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="关于 this 指向肯定遇到过许许多多的奇怪问题，这都是因为没弄清楚它的指向导致一些调用的错误，下面总结先 this 的指向。
+1.谁调用了它，this 就指向谁，当是全局调用且为非严格模式时 this 指全局(在浏览器环境下指向 wind..." />
+    <meta name="keywords" content="javascript" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://icyfe.github.io/icyblog/">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592382180421" alt="">
+  </a>
+  <h1 class="site-title">
+    icyfe
+  </h1>
+  <p class="site-description">
+    好好学习天天向上🌸
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Javascript this 指向问题
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-17
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/javascript-this-zhi-xiang-wen-ti.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>关于 this 指向肯定遇到过许许多多的奇怪问题，这都是因为没弄清楚它的指向导致一些调用的错误，下面总结先 this 的指向。</p>
+<h2 id="1谁调用了它this-就指向谁当是全局调用且为非严格模式时-this-指全局在浏览器环境下指向-window否则是-undefined"><strong>1.谁调用了它，this 就指向谁，当是全局调用且为非严格模式时 this 指全局(在浏览器环境下指向 window)，否则是 undefined</strong></h2>
+<p>举个栗子<br>
+非严格模式</p>
+<pre><code class="language-js">var value = 'global scope';
+function a() {
+  console.log(this.value);
+}
+a(); // global scope
+</code></pre>
+<p>严格模式</p>
+<pre><code class="language-js">'use strict';
+var value = 'global scope';
+function a() {
+  console.log(this.value);
+}
+a(); // undefined
+</code></pre>
+<p>在浏览器中全局的 this 默认是 window， 因此 a()在全局中被调用相当于是 window.a，谁调用它 this 就指向谁，因此这里打印出全局变量的'global scope'<br>
+在看一个栗子：</p>
+<pre><code class="language-js">var value = 'global scope';
+var o = {
+  value: 'local scope',
+  a: function() {
+    console.log(this.value);
+  }
+};
+
+o.a(); //local scope
+</code></pre>
+<p>这里通过创建一个 o 实例对象，通过 o 调用 this 的指向就指向 o。</p>
+<h2 id="2call-apply-bind-改变this指向"><code>2.call, apply, bind 改变this指向</code></h2>
+<p>在 js 中有三种方式可以显示的改变 this 的指向，call 和 apply 除了传参不一样其本质是一样的，call 和 apply 第一个参数都是要传入将要指向的 this, call 后面可接多个参数，apply 则是第二个参数接收一个参数的集合，也就是数组。</p>
+<pre><code class="language-js">fn.call(this, arg1, ag2, ag3);
+fn.apply(this, [...arg]);
+</code></pre>
+<p>bind 的本质是封装了 apply 它返回的一个函数。<br>
+来看几个栗子:</p>
+<pre><code class="language-js">var value = 'global scope';
+function b() {
+  console.log(this.value);
+}
+var o = {
+  value: 'local scope',
+  a: function() {
+    console.log(this.value);
+  }
+};
+
+b.call(o); //local scope
+b.apply(o); //local scope
+let c = b.bind(o);
+c(); //local scope
+</code></pre>
+<p>上面几个栗子都是改变了 this 的指向，原本在非严格模式下指向全局的 this 应该输出'global scope'，改变 this 指向后指向了传入的 o 对象因此打印出'local scope'<br>
+call 和 apply 的原理其实是在传入的对象增加要执行的函数，从而改变 this 的指向，执行完后在删除函数，这个后面会有一章节来仿写 call,apply 和 bind 函数。</p>
+<h2 id="3new-关键字">3.new 关键字</h2>
+<p>通过 new 关键字调用函数会以构造函数的形式调用会发生以下步骤 1.创建一个对象 2.将对象的实例原型指向构造函数的原型<br>
+<strong>3.将对象的 this 绑定到构造函数并创建一系列属性</strong> 4.返回这个对象<br>
+因此我们可以 new 关键字调用的函数也会改变 this 的指向，它指向创建出来的实例对象<br>
+举个栗子：</p>
+<pre><code class="language-js">var value = 'global scope';
+function A() {
+  this.value = 'local scope';
+  this.sayValue = function() {
+    console.log(this.value);
+  };
+}
+
+let b = new A();
+b.sayValue();
+</code></pre>
+<p>通过 new 内部发生的过程我们就可以知道上面的栗子将 this 指向了新创建出来的实例 b 因此打印 value 时候就打印出'local scope'</p>
+<h2 id="4-箭头函数的-this">4、箭头函数的 this</h2>
+<p>在 ES6 中新增了箭头函数用法，它本身没有绑定 this，它的 this 指向是离的它最近的一个普通函数所绑定的 this，在 ES5 之前我们在一些匿名函数为了防止 this 指向丢失我们可能会这样绑定 this</p>
+<pre><code class="language-js">function a() {
+  let self = this;
+  this.value = 'Hi!';
+  setTimeout(function() {
+    console.log(self.value);
+  }, 0);
+}
+</code></pre>
+<p>在 ES6 中这样就可以了</p>
+<pre><code class="language-js">function a() {
+  this.value = 'Hi!';
+  setTimeout(() =&gt; {
+    console.log(this.value);
+  }, 0);
+}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p><code>只要记住一点。在箭头函数中的this的指向永远是离它最近的一个普通函数所绑定的this,如上栗子离匿名函数最近的普通函数是 a函数， 当a被谁调用时 this就指向谁</code></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1%E8%B0%81%E8%B0%83%E7%94%A8%E4%BA%86%E5%AE%83this-%E5%B0%B1%E6%8C%87%E5%90%91%E8%B0%81%E5%BD%93%E6%98%AF%E5%85%A8%E5%B1%80%E8%B0%83%E7%94%A8%E4%B8%94%E4%B8%BA%E9%9D%9E%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F%E6%97%B6-this-%E6%8C%87%E5%85%A8%E5%B1%80%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8C%87%E5%90%91-window%E5%90%A6%E5%88%99%E6%98%AF-undefined"><strong>1.谁调用了它，this 就指向谁，当是全局调用且为非严格模式时 this 指全局(在浏览器环境下指向 window)，否则是 undefined</strong></a></li>
+<li><a href="#2call-apply-bind-%E6%94%B9%E5%8F%98this%E6%8C%87%E5%90%91"><code>2.call, apply, bind 改变this指向</code></a></li>
+<li><a href="#3new-%E5%85%B3%E9%94%AE%E5%AD%97">3.new 关键字</a></li>
+<li><a href="#4-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84-this">4、箭头函数的 this</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://icyfe.github.io/icyblog/post/shou-xie-jian-dan-ban-fu-he-promiseagui-fan-de-promise/">
+              <h3 class="post-title">
+                手写简单版符合 PromiseA+规范的 Promise
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'b5c28ec6bd13b8deb4f2',
+    clientSecret: '4f8fb75044211e6b3cfade41f69a78185924b102',
+    repo: 'icyblog',
+    owner: 'icyfe',
+    admin: ['icyfe'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  ok fine~
+  <a class="rss" href="https://icyfe.github.io/icyblog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

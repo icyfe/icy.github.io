@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>原型与原型链 | icyfe</title>
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592382180421">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="原型与原型链 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="一直在学习却没有系列的总结过知识点，从这篇开始总结下一些知识点，这次总结的是 js 中的原型与原型链
+开写之前先上一张图，接下来的概念基本上都会围绕这张图来讲
+
+什么是原型？
+引用红宝书中的一段话：
+无论什么时候，只要创建了一个新函数，就会..." />
+    <meta name="keywords" content="javascript" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://icyfe.github.io/icyblog/">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592382180421" alt="">
+  </a>
+  <h1 class="site-title">
+    icyfe
+  </h1>
+  <p class="site-description">
+    好好学习天天向上🌸
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              原型与原型链
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-17
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/yuan-xing-yu-yuan-xing-lian.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>一直在学习却没有系列的总结过知识点，从这篇开始总结下一些知识点，这次总结的是 js 中的原型与原型链</p>
+<p>开写之前先上一张图，接下来的概念基本上都会围绕这张图来讲<br>
+<img src="https://user-images.githubusercontent.com/44893721/53714411-3577dc00-3e89-11e9-8128-49f13b226f45.png" alt="1 2rwcm 1 o 2h 8xf" loading="lazy"></p>
+<h2 id="什么是原型"><strong>什么是原型？</strong></h2>
+<p>引用红宝书中的一段话：</p>
+<pre><code>无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype
+属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个 constructor
+（构造函数）属性，这个属性包含一个指向 prototype 属性所在函数的指针。
+</code></pre>
+<p>简单点来说<strong>只要是函数就会有一个 prototype(原型)属性它是一个指针</strong>，它指向的是一个对象这个对象就是函数的原型对象，这个对象会默认获得一个 constructor(构造函数）的属性指向 prototype 指针所在的函数，<strong>当我们通过 new 关键字调用函数时就是通过调用构造函数的方式去创建一个对象,这时候会对象实列上面会自动包含一个[[Prototype]]指针指向构造函数的原型对象</strong>，一般[[Prototype]]在浏览器中的实现长这样<strong>proto</strong>。<br>
+其实这就是开头图的第一部分<br>
+<img src="https://user-images.githubusercontent.com/44893721/53715365-85a46d80-3e8c-11e9-8246-26812203fa03.png" alt="ej6h 45puxz 0nla66m 7f" loading="lazy"></p>
+<p>来梳理一下，一下冒出了这么多个属性感觉有点绕 1.函数与函数原型通过<strong>prototype</strong>属性链接， 函数原型的<strong>construtor</strong>属性指向构造函数 2.对象实例与原型对象通过实力的****proto****属性链接。</p>
+<h2 id="原型模式的作用">原型模式的作用</h2>
+<p>说了这么多这个原型到底有什么用呢？<br>
+再次引用红宝书中的一段话</p>
+<pre><code>我们创建的每个函数都有一个 prototype （原型）属性，这个属性是一个指针，指向一个对象，
+而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，那
+么 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以
+让所有对象实例共享它所包含的属性和方法
+</code></pre>
+<p>简单描述下这里的让所有实例可以共享原型对象的属性和方法这句话，当我们在原型对象上创建方法时像下面这样：</p>
+<pre><code class="language-js">function Person() {}
+Person.prototype.sayHi = function() {
+  console.log('Hi!');
+};
+const p = new Person();
+p.sayHi(); //'Hi!'
+</code></pre>
+<p>这段代码我们明明在 Person 中没有定义 sayHi 但是却成功的打印出了'Hi'， 这是因为当对象实例在查找属性时，会优先在本身实例中查找，如果没有查找到就会顺着原型指针指向的原型对象继续查找属性，最终找到了就打印出了'Hi'</p>
+<p>不知道大家有没有发现，我们几乎所有的对象都可以调用 toString 或者 valueOf()方法，比如上面的所示代码也可以调用 toString()</p>
+<pre><code class="language-js">p.toString(); // function Person...
+</code></pre>
+<p>这里不经有个疑问，为什么 Person 的实例没有定义 toString()，原型对象上也没有定义 toString 方法，怎么就调用成功了呢？再次引用红包书的一段话</p>
+<pre><code>大家要记住，所有函数的默认原型都是 Object 的实例，因此默认原
+型都会包含一个内部指针
+</code></pre>
+<p>这里不禁恍然大悟，原来所有的原型对象默认是 Object 的实例，<strong>那么就是说原型对象也会有一个</strong>proto<strong>属性它默认指向 Object 的原型对象，因为 Object 对象上默认定义了一些属性如 toString(),valueOf()等，所以上面当我们调用 p.toString() 在本身实例没找到就会顺着原型去查找，原型对象上没有的时候再次顺着原型对象的</strong>proto<strong>查找，最终找到并执行因此 Object 是所有原型的尽头，还有一点 Object 的原型指向空所以当 Object 都查找不到属性的时候就会报错</strong>，由一系列的原型指针连起来的就组成了原型链。</p>
+<p>这里也就是开头图的第二部分<br>
+<img src="https://user-images.githubusercontent.com/44893721/53717226-71fc0580-3e92-11e9-98a9-824891658bf4.png" alt="image" loading="lazy"></p>
+<p>最后我们来看看最后一部分</p>
+<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/53717251-86400280-3e92-11e9-8a3b-07284fee1f37.png" alt="image" loading="lazy"></figure>
+<p>通常我们定义函数时都是这样定义的</p>
+<pre><code class="language-js">function Person(a, b) {
+  return a + b;
+}
+</code></pre>
+<p>但是殊不知也算可以这样定义的<br>
+<code>let Person = new Function('a','b','return a+b')</code><br>
+这样的写法等价与上面的写法，因此每个函数其实也是 Function 构造函数的实例，所以也遵循以上所描述拥有一系列原型属性，所以我们常常会调用 call 和 apply 的方法就是通过 Function 原型对象上继承来的。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E5%9E%8B"><strong>什么是原型？</strong></a></li>
+<li><a href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BD%9C%E7%94%A8">原型模式的作用</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://icyfe.github.io/icyblog/post/shu-zu-bian-ping-hua/">
+              <h3 class="post-title">
+                 数组扁平化
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'b5c28ec6bd13b8deb4f2',
+    clientSecret: '4f8fb75044211e6b3cfade41f69a78185924b102',
+    repo: 'icyblog',
+    owner: 'icyfe',
+    admin: ['icyfe'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  ok fine~
+  <a class="rss" href="https://icyfe.github.io/icyblog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
