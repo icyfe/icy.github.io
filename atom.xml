@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-17T08:32:06.044Z</updated>
+    <updated>2020-06-17T08:34:39.168Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -11,11 +11,11 @@
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
     <rights>All rights reserved 2020, icyfe</rights>
     <entry>
-        <title type="html"><![CDATA[Css 权重值]]></title>
-        <id>https://icyfe.github.io/icyblog/post/css-quan-chong-zhi/</id>
-        <link href="https://icyfe.github.io/icyblog/post/css-quan-chong-zhi/">
+        <title type="html"><![CDATA[ 深入理解Css 权重值]]></title>
+        <id>https://icyfe.github.io/icyblog/post/shen-ru-li-jie-css-quan-chong-zhi/</id>
+        <link href="https://icyfe.github.io/icyblog/post/shen-ru-li-jie-css-quan-chong-zhi/">
         </link>
-        <updated>2020-06-17T08:20:10.000Z</updated>
+        <updated>2020-06-17T08:34:03.000Z</updated>
         <content type="html"><![CDATA[<h1 id="css-权重值">Css 权重值？</h1>
 <p>在日常我们写 css 样式的时候或多或少都遇到过自己写的样式不生效的时候，一般都不会去探究背后的原因直接一股脑的！important 完事，但这样是非常不好的，但有的时候加了 important 也无法生效样式（当然我们还是遵循能不写 Important 就尽量不写），这是为什么呢！在 css 写样式中有个重要的权重问题！</p>
 <h2 id="什么是权重">什么是权重？</h2>

@@ -2,21 +2,18 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title> 数组扁平化 | icyfe</title>
+<title> 深入理解Css 权重值 | icyfe</title>
 <link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592382877104">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title=" 数组扁平化 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="alternate" type="application/atom+xml" title=" 深入理解Css 权重值 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-要求将他扁平化，并按升序排列
-什么是扁平化？
-就是转换成这样
-..." />
-    <meta name="keywords" content="javascript" />
+    <meta name="description" content="Css 权重值？
+在日常我们写 css 样式的时候或多或少都遇到过自己写的样式不生效的时候，一般都不会去探究背后的原因直接一股脑的！important 完事，但这样是非常不好的，但有的时候加了 important 也无法生效样式（当然我们还..." />
+    <meta name="keywords" content="css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -78,7 +75,7 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-               数组扁平化
+               深入理解Css 权重值
             </h2>
             <div class="post-info">
               <span>
@@ -88,86 +85,93 @@
                 3 min read
               </span>
               
-                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
-                  # javascript
+                <a href="https://icyfe.github.io/icyblog/tag/j8JwUg6Og/" class="post-tag">
+                  # css
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/shu-zu-bian-ping-hua.png" alt="">
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/shen-ru-li-jie-css-quan-chong-zhi.png" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="有这么一个数组-var-arr-1-2-2-3-4-5-5-6-7-8-9-11-12-12-13-14-10">有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];</h2>
-<h2 id="要求将他扁平化并按升序排列">要求将他扁平化，并按升序排列</h2>
-<p><strong>什么是扁平化？</strong><br>
-就是转换成这样<br>
-[[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10] =&gt;[1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10]</p>
-<p><strong>方法一：</strong></p>
-<pre><code class="language-js">function flatAndsort(arr) {
-  return arr
-    .toString()
-    .split(',') //拍平数组(但是有个不好的地方就是会将数字类型转换成字符串类型)
-    .sort((a, b) =&gt; {
-      return a - b; //升序排序
-    })
-    .map(item =&gt; {
-      return parseInt(item); // 因为之前转换成了字符串类型我们转换回来
-    });
+                <h1 id="css-权重值">Css 权重值？</h1>
+<p>在日常我们写 css 样式的时候或多或少都遇到过自己写的样式不生效的时候，一般都不会去探究背后的原因直接一股脑的！important 完事，但这样是非常不好的，但有的时候加了 important 也无法生效样式（当然我们还是遵循能不写 Important 就尽量不写），这是为什么呢！在 css 写样式中有个重要的权重问题！</p>
+<h2 id="什么是权重">什么是权重？</h2>
+<p>每个 css 规则都有自己相应的权重值，权重值越大的规则生效，主要有 5 种</p>
+<ol>
+<li>行内样式 权重值 1000</li>
+<li>id 选择器 权重值 100</li>
+<li>类选择起，属性和伪类(:hover,actived) 权重值 10 4.元素，伪元素 (::before,::after) 权重值 1<br>
+5.!important 最大，（但也遵从权重计算规则下面会提到）<br>
+我们写的 css 规则就按照以上权重值进行累加，例如以下栗子：</li>
+</ol>
+<pre><code class="language-css">&lt;div style=&quot;.....&quot;&gt;&lt;/div&gt; =&gt;1000
+#id{} =&gt;100
+.class{}=&gt;10
+body{} =&gt;1
+p{}=&gt;1
+</code></pre>
+<p>当写 css 规则时会按照值进行累加，值越大权重越大</p>
+<pre><code class="language-css">body #id {} =&gt;元素1 id选择器100 = 101
+#id .class{} =&gt;id选择器100类选择器 = 110
+#id .class p{} =&gt; id选择器100  类选择器10 元素标签1 = 111
+</code></pre>
+<h2 id="主要规则">主要规则</h2>
+<p><strong>无论多少个同级权重累加都不会超过高等级权重值</strong></p>
+<pre><code class="language-css">.class .class .Nclass {
 }
-//[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
-</code></pre>
-<p><strong>方法二：</strong></p>
-<pre><code class="language-js">function flat(arr) {
-  return [].concat(
-    ...arr.map(item =&gt; {
-      return Array.isArray(item) == true ? flat(item) : item;
-    })
-  );
+&lt; #id {
 }
-function sort(a, b) {
-  return a - b;
+</code></pre>
+<p><strong>相同权重值作用于同一个元素时权重值大的生效</strong></p>
+<pre><code class="language-css">.test1 .test2{background:red} =&gt;20
+.tetst1 .test2 p{background:black} =&gt;21
+</code></pre>
+<p>假设以上两条都作用于同一个元素，下面权重值高的会生效<br>
+有时候!important 加了也没生效是为什么呢？因为它也遵循权重大小规则例如：</p>
+<pre><code class="language-css">.test1 .test2{background:red!important} =&gt;20
+.tetst1 .test2 p{background:black!important} =&gt;21
+</code></pre>
+<p>上面都加了 important 但还是权重值更大的会生效<br>
+<strong>离元素标签越近的生效</strong><br>
+在一个单独的 css 文件写如下样式</p>
+<pre><code class="language-css">.nav-bar {
+  background: red;
 }
-
-let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
 </code></pre>
-<p><strong>方法三</strong></p>
-<pre><code class="language-js">function flat(arr) {
-  return arr.reduce((pre, current) =&gt; {
-    return pre.concat(current.constructor == Array ? flat(current) : current);
-  }, []);
+<p>在 html 的 style 中写</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;style&gt;
+    .nav-bar {
+      background: black;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+</code></pre>
+<p>以上栗子中虽然都一样但是下面的 css 会生效<br>
+<a href="https://www.adobe.com/devnet/archive/dreamweaver/articles/css_specificity_02.html">详细参阅【Understanding Specificity】 </a></p>
+<p><strong>相同的权重后面的会覆盖前面的</strong></p>
+<pre><code class="language-css">p {
+  background: red;
 }
-function sort(a, b) {
-  return a - b;
+p {
+  background: black;
 }
-let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
 </code></pre>
-<p><strong>方法四(完全 ES6 方法)</strong></p>
-<pre><code class="language-js">var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-
-let c = arr.flat(4).sort((a, b) =&gt; {
-  return a - b;
-});
-</code></pre>
-<p>Array.flat()函数是将数据扁平化的一个函数，它接收一个参数，depath 决定数组嵌套的深度，这里例深度是 4 所以我们传 4</p>
-<h2 id="最后在增加一个需求将扁平化升序排列的数组去重如何实现">最后在增加一个需求，将扁平化升序排列的数组去重如何实现？**</h2>
-<p>ES5:</p>
-<pre><code class="language-js">let list = c.filter((item, index, list) =&gt; {
-  return list.indexOf(item) == index;
-});
-</code></pre>
-<p>ES6:</p>
-<pre><code class="language-js">[...new Set([1, 2, 2, 3, 4, 5])]; // 12345
-</code></pre>
+<h2 id="最后">最后</h2>
+<p><strong>不要用!important</strong><br>
+永远都不要使用“!important”：“如果你遇到了权重问题，第一个解决方法肯定是去掉“!important”，“!important”会覆盖所有的样式规则，但“!important”根本没有结构与上下文可言，所以很 容易找不到样式失效的原因</p>
+<p>本文参考<a href="https://www.w3cplus.com/css/css-specificity-things-you-should-know.html">你应该知道的 css 权重问题</a></p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
-<li>
+<li><a href="#css-%E6%9D%83%E9%87%8D%E5%80%BC">Css 权重值？</a>
 <ul>
-<li><a href="#%E6%9C%89%E8%BF%99%E4%B9%88%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84-var-arr-1-2-2-3-4-5-5-6-7-8-9-11-12-12-13-14-10">有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];</a></li>
-<li><a href="#%E8%A6%81%E6%B1%82%E5%B0%86%E4%BB%96%E6%89%81%E5%B9%B3%E5%8C%96%E5%B9%B6%E6%8C%89%E5%8D%87%E5%BA%8F%E6%8E%92%E5%88%97">要求将他扁平化，并按升序排列</a></li>
-<li><a href="#%E6%9C%80%E5%90%8E%E5%9C%A8%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E9%9C%80%E6%B1%82%E5%B0%86%E6%89%81%E5%B9%B3%E5%8C%96%E5%8D%87%E5%BA%8F%E6%8E%92%E5%88%97%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">最后在增加一个需求，将扁平化升序排列的数组去重如何实现？**</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9D%83%E9%87%8D">什么是权重？</a></li>
+<li><a href="#%E4%B8%BB%E8%A6%81%E8%A7%84%E5%88%99">主要规则</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E">最后</a></li>
 </ul>
 </li>
 </ul>
@@ -180,9 +184,9 @@ let c = arr.flat(4).sort((a, b) =&gt; {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://icyfe.github.io/icyblog/post/bian-liang-dui-xiang/">
+            <a href="https://icyfe.github.io/icyblog/post/less-quan-ju-huan-fu-fang-an/">
               <h3 class="post-title">
-                变量对象
+                 less 全局换肤方案
               </h3>
             </a>
           </div>
