@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-17T06:10:34.094Z</updated>
+    <updated>2020-06-17T06:10:56.834Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -185,7 +185,7 @@ export default {
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello~]]></title>
+        <title type="html"><![CDATA[Hello~fine]]></title>
         <id>https://icyfe.github.io/icyblog/post/hello/</id>
         <link href="https://icyfe.github.io/icyblog/post/hello/">
         </link>
