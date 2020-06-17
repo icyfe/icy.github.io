@@ -1,0 +1,371 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>数万条数据优化 | icyfe</title>
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592375141265">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="数万条数据优化 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="当一个页面的列表有大量数据如有 100000 条如何优化渲染？
+当我们将 10W 条全部在页面加载的时候渲染出来，可以很明显的感受到加载速度缓慢并且可以看到 DOM 树非常非常的长当快速上下滚动时候，偶尔还会卡顿，下面我们用代码实现下这里用..." />
+    <meta name="keywords" content="javascript" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://icyfe.github.io/icyblog/">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592375141265" alt="">
+  </a>
+  <h1 class="site-title">
+    icyfe
+  </h1>
+  <p class="site-description">
+    好好学习天天向上🌸
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              数万条数据优化
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-17
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/shu-wan-tiao-shu-ju-you-hua.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="当一个页面的列表有大量数据如有-100000-条如何优化渲染">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</h2>
+<p>当我们将 10W 条全部在页面加载的时候渲染出来，可以很明显的感受到加载速度缓慢并且可以看到 DOM 树非常非常的长当快速上下滚动时候，偶尔还会卡顿，下面我们用代码实现下这里用 vue 实现</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;list-view&quot;&gt;
+    &lt;!-- @scroll=&quot;handleScroll($event)&quot; --&gt;
+    &lt;div class=&quot;list-view-item&quot; :style=&quot;{ height: itemHeight + 'px' }&quot; v-for=&quot;item in data&quot; :key=&quot;item.value&quot;&gt;{{ item }}&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+​
+&lt;style&gt;
+.list-view {
+  height: 600px;
+  width: 200px;
+  overflow: auto;
+  position: relative;
+  border: 1px solid #666;
+}
+​ .list-view-phantom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+.list-view-content {
+  position: absolute;
+  height: 600px;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+​ .list-view-item {
+  padding: 5px;
+  color: #000;
+  height: 30px;
+  width: 200px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+&lt;/style&gt;
+&lt;script&gt;
+export default {
+  props: {
+    itemHeight: {
+      type: Number,
+      default: 30
+    }
+  },
+  mounted() {},
+  created() {
+    for (let i = 0; i &lt; 100000; i++) {
+      this.data.push('第' + i + '条');
+    }
+  },
+  data() {
+    return {
+      data: []
+    };
+  },
+  methods: {}
+};
+&lt;/script&gt;
+</code></pre>
+<p>效果图<br>
+<img src="https://user-images.githubusercontent.com/44893721/54416187-a9439f80-4739-11e9-8cb5-bf7af0ba85c6.gif" alt="cc" loading="lazy"><br>
+可以很明显的看到当快速滑动时画面的卡顿</p>
+<h2 id="如何优化">如何优化？</h2>
+<p>我们知道屏幕都是有一个可视范围的，我们因此就可以当节点在可视范围时就显示出来，当节点不在可视范围时候就移除，因此我们只要渲染可视范围的节点即可<br>
+画个图<br>
+<img src="https://user-images.githubusercontent.com/44893721/54416872-9762fc00-473b-11e9-87d6-9e0791a86d91.jpg" alt="1552636795(1)" loading="lazy"></p>
+<p>主要分以下几个步骤。 1.计算窗口可视范围，并根据可视范围计算出一屏幕可见的节点。 2.监听滚动计算每次滚动完成后的初始节点和末尾节点 3.根据新的起始节点替换可视区域数据<br>
+具体实现参考了一篇网上的博客具体链接会在下面注明：</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;list-view&quot; @scroll=&quot;handleScroll($event)&quot;&gt;
+    &lt;div class=&quot;list-view-phantom&quot; :style=&quot;{ height: listheight + 'px' }&quot;&gt;&lt;/div&gt;
+    &lt;div ref=&quot;content&quot; class=&quot;list-view-content&quot;&gt;
+      &lt;div class=&quot;list-view-item&quot; :style=&quot;{ height: itemHeight + 'px' }&quot; v-for=&quot;item in visibleData&quot; :key=&quot;item.value&quot;&gt;{{ item }}&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  props: {
+    itemHeight: {
+      type: Number,
+      default: 30
+    }
+  },
+  mounted() {
+    this.visibleCount = Math.ceil(this.$el.clientHeight / this.itemHeight); //计算可视区域高度可显示数据条目数
+    this.start = 0; //起始数据下标
+    this.end = this.start + this.visibleCount; //末尾最后一条
+    this.visibleData = this.data.slice(this.start, this.end); // 初始化可视区域数据
+  },
+  created() {
+    for (let i = 0; i &lt; 100000; i++) {
+      this.data.push('第' + i + '条'); //初始化10W条数据
+    }
+    this.listheight = this.data.length * 30; //计算10w条元素的总高度
+  },
+  data() {
+    return {
+      data: [],
+      start: 0,
+      end: null,
+      visibleCount: null, //
+      visibleData: [],
+      scrollTop: 0,
+      listheight: ''
+    };
+  },
+  methods: {
+    //滚动监听
+    handleScroll(event) {
+      const scrollTop = this.$el.scrollTop; //监听距离顶部高度
+      const fixedScrollTop = scrollTop - (scrollTop % 30); //修复移动位置不精确问题
+      this.$refs.content.style.webkitTransform = `translate3d(0, ${fixedScrollTop}px, 0)`; //实时位移
+      this.start = Math.floor(scrollTop / 30); //重新计算起始条目下标
+      this.end = this.start + this.visibleCount; // 重新计算末尾小标
+      this.visibleData = this.data.slice(this.start, this.end); //重新装载可视区域数据
+    }
+  }
+};
+&lt;/script&gt;
+&lt;style&gt;
+.list-view {
+  height: 400px;
+  width: 200px;
+  overflow: auto;
+  position: relative;
+  border: 1px solid #666;
+}
+​ .list-view-phantom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+.list-view-content {
+  position: absolute;
+  height: 400px;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+​ .list-view-item {
+  padding: 5px;
+  color: #000;
+  height: 30px;
+  width: 200px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+&lt;/style&gt;
+</code></pre>
+<p>来看看实现后的快速滚动的效果<br>
+<img src="https://user-images.githubusercontent.com/44893721/54417786-1c4f1500-473e-11e9-8602-0e19d27c6176.gif" alt="ccc" loading="lazy"><br>
+<img src="https://user-images.githubusercontent.com/44893721/54417902-60421a00-473e-11e9-938e-10e19e226590.gif" alt="aaa" loading="lazy"></p>
+<p>这里主要利用了绝对布局，利用两个绝对布局一个没有任何元素，但高度为所有节点高度的合，利用这个撑开父节点使其滚动条出现，第二个节点高度和可视区域高度一致，当不断滚动的时候利用位移调整位置。<br>
+画个图<br>
+<img src="https://user-images.githubusercontent.com/44893721/54418395-cb402080-473f-11e9-9d0f-7dd49266f1fd.jpg" alt="1552638608(1)" loading="lazy"></p>
+<p>无论如何滑动，可视区域的范围就那么大，因此不会造成页面大量 DOM 节点的存在导致卡顿问题的出现<br>
+参考实现https://zhuanlan.zhihu.com/p/26022258</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%BD%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%88%97%E8%A1%A8%E6%9C%89%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A6%82%E6%9C%89-100000-%E6%9D%A1%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E6%B8%B2%E6%9F%93">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96">如何优化？</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://icyfe.github.io/icyblog/post/hello/">
+              <h3 class="post-title">
+                Hello~fine
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'b5c28ec6bd13b8deb4f2',
+    clientSecret: '4f8fb75044211e6b3cfade41f69a78185924b102',
+    repo: 'icyblog',
+    owner: 'icyfe',
+    admin: ['icyfe'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  ok fine~
+  <a class="rss" href="https://icyfe.github.io/icyblog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
