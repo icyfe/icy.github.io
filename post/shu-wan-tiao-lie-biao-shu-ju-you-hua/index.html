@@ -1,22 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://icyfe.github.io/icyblog/</id>
-    <title>icyfe</title>
-    <updated>2020-06-17T03:26:15.181Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
-    <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
-    <subtitle>好好学习天天向上</subtitle>
-    <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
-    <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
-    <rights>All rights reserved 2020, icyfe</rights>
-    <entry>
-        <title type="html"><![CDATA[ 数万条列表数据优化]]></title>
-        <id>https://icyfe.github.io/icyblog/post/shu-wan-tiao-lie-biao-shu-ju-you-hua/</id>
-        <link href="https://icyfe.github.io/icyblog/post/shu-wan-tiao-lie-biao-shu-ju-you-hua/">
-        </link>
-        <updated>2020-06-17T03:21:45.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="当一个页面的列表有大量数据如有-100000-条如何优化渲染">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</h2>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> 数万条列表数据优化 | icyfe</title>
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592364371467">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title=" 数万条列表数据优化 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="当一个页面的列表有大量数据如有 100000 条如何优化渲染？
+当我们将 10W 条全部在页面加载的时候渲染出来，可以很明显的感受到加载速度缓慢并且可以看到 DOM 树非常非常的长当快速上下滚动时候，偶尔还会卡顿，下面我们用代码实现下这里用..." />
+    <meta name="keywords" content="javascript" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://icyfe.github.io/icyblog/">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592364371467" alt="">
+  </a>
+  <h1 class="site-title">
+    icyfe
+  </h1>
+  <p class="site-description">
+    好好学习天天向上
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://icyfe.github.io/icyblog/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+               数万条列表数据优化
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-17
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/shu-wan-tiao-lie-biao-shu-ju-you-hua.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="当一个页面的列表有大量数据如有-100000-条如何优化渲染">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</h2>
 <p>当我们将 10W 条全部在页面加载的时候渲染出来，可以很明显的感受到加载速度缓慢并且可以看到 DOM 树非常非常的长当快速上下滚动时候，偶尔还会卡顿，下面我们用代码实现下这里用 vue 实现</p>
 <pre><code class="language-vue">&lt;template&gt;
   &lt;div class=&quot;list-view&quot;&gt;
@@ -182,15 +261,85 @@ export default {
 <img src="https://user-images.githubusercontent.com/44893721/54418395-cb402080-473f-11e9-9d0f-7dd49266f1fd.jpg" alt="1552638608(1)" loading="lazy"></p>
 <p>无论如何滑动，可视区域的范围就那么大，因此不会造成页面大量 DOM 节点的存在导致卡顿问题的出现<br>
 参考实现https://zhuanlan.zhihu.com/p/26022258</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello~]]></title>
-        <id>https://icyfe.github.io/icyblog/post/hello~/</id>
-        <link href="https://icyfe.github.io/icyblog/post/hello~/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="记录生活-记录点滴">记录生活， 记录点滴</h2>
-]]></content>
-    </entry>
-</feed>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%BD%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%88%97%E8%A1%A8%E6%9C%89%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A6%82%E6%9C%89-100000-%E6%9D%A1%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E6%B8%B2%E6%9F%93">当一个页面的列表有大量数据如有 100000 条如何优化渲染？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96">如何优化？</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://icyfe.github.io/icyblog/post/hello~/">
+              <h3 class="post-title">
+                Hello~
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  icy_
+  <a class="rss" href="https://icyfe.github.io/icyblog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
