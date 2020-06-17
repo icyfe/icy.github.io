@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
-    <title>Gridea</title>
-    <updated>2020-06-17T03:09:26.869Z</updated>
+    <title>icyfe</title>
+    <updated>2020-06-17T03:12:16.786Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>好好学习天天向上</subtitle>
     <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, icyfe</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://icyfe.github.io/icyblog/post/hello-gridea/</id>
