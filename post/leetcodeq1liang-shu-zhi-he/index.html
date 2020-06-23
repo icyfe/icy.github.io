@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LeetCodeQ1：两数之和 | icyfe</title>
-<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592876479119">
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592879333656">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="LeetCodeQ1：两数之和 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
@@ -11,11 +11,10 @@
 
 
 
-    <meta name="description" content="解法一
-暴力解法两遍遍历找出两数相加等于target的两个val的下标值
-public int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
-  ..." />
+    <meta name="description" content="题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+示例:
+给定 nums = [2,..." />
     <meta name="keywords" content="leetcode" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -25,7 +24,7 @@ public int[] twoSum(int[] nums, int target) {
       <div class="main-content">
         <div class="site-header">
   <a href="https://icyfe.github.io/icyblog/">
-  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592876479119" alt="">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592879333656" alt="">
   </a>
   <h1 class="site-title">
     icyfe
@@ -85,7 +84,7 @@ public int[] twoSum(int[] nums, int target) {
                 2020-06-22
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
                 <a href="https://icyfe.github.io/icyblog/tag/_O_Z_0dhV/" class="post-tag">
@@ -98,7 +97,13 @@ public int[] twoSum(int[] nums, int target) {
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="解法一">解法一</h2>
+                <h3 id="题目给定一个整数数组-nums-和一个目标值-target请你在该数组中找出和为目标值的那-两个-整数并返回他们的数组下标">题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</h3>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。<br>
+示例:<br>
+给定 nums = [2, 7, 11, 15], target = 9<br>
+因为 nums[0] + nums[1] = 2 + 7 = 9<br>
+所以返回 [0, 1]</p>
+<h2 id="解法一">解法一</h2>
 <p>暴力解法两遍遍历找出两数相加等于target的两个val的下标值</p>
 <pre><code class="language-java">public int[] twoSum(int[] nums, int target) {
         int[] result = new int[2];
@@ -133,6 +138,11 @@ public int[] twoSum(int[] nums, int target) {
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
+<li>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84-nums-%E5%92%8C%E4%B8%80%E4%B8%AA%E7%9B%AE%E6%A0%87%E5%80%BC-target%E8%AF%B7%E4%BD%A0%E5%9C%A8%E8%AF%A5%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%BE%E5%87%BA%E5%92%8C%E4%B8%BA%E7%9B%AE%E6%A0%87%E5%80%BC%E7%9A%84%E9%82%A3-%E4%B8%A4%E4%B8%AA-%E6%95%B4%E6%95%B0%E5%B9%B6%E8%BF%94%E5%9B%9E%E4%BB%96%E4%BB%AC%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87">题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</a></li>
+</ul>
+</li>
 <li><a href="#%E8%A7%A3%E6%B3%95%E4%B8%80">解法一</a></li>
 <li><a href="#%E8%A7%A3%E6%B3%95%E4%BA%8C">解法二</a></li>
 </ul>

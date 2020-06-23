@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-23T01:41:23.401Z</updated>
+    <updated>2020-06-23T02:28:57.631Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -16,7 +16,13 @@
         <link href="https://icyfe.github.io/icyblog/post/leetcodeq1liang-shu-zhi-he/">
         </link>
         <updated>2020-06-22T10:00:15.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="解法一">解法一</h2>
+        <content type="html"><![CDATA[<h3 id="题目给定一个整数数组-nums-和一个目标值-target请你在该数组中找出和为目标值的那-两个-整数并返回他们的数组下标">题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</h3>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。<br>
+示例:<br>
+给定 nums = [2, 7, 11, 15], target = 9<br>
+因为 nums[0] + nums[1] = 2 + 7 = 9<br>
+所以返回 [0, 1]</p>
+<h2 id="解法一">解法一</h2>
 <p>暴力解法两遍遍历找出两数相加等于target的两个val的下标值</p>
 <pre><code class="language-java">public int[] twoSum(int[] nums, int target) {
         int[] result = new int[2];
