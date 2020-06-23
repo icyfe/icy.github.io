@@ -2,20 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LeetCodeQ1：两数之和 | icyfe</title>
+<title>LeetCodeQ19:删除倒数第n个节点 | icyfe</title>
 <link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592895419842">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="LeetCodeQ1：两数之和 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="alternate" type="application/atom+xml" title="LeetCodeQ19:删除倒数第n个节点 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
-示例:
-给定 nums = [2,..." />
-    <meta name="keywords" content="leetcode" />
+    <meta name="description" content="题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+示例：
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -77,60 +77,46 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              LeetCodeQ1：两数之和
+              LeetCodeQ19:删除倒数第n个节点
             </h2>
             <div class="post-info">
               <span>
-                2020-06-20
+                2020-06-23
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
-              
-                <a href="https://icyfe.github.io/icyblog/tag/_O_Z_0dhV/" class="post-tag">
-                  # leetcode
-                </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/leetcodeq1liang-shu-zhi-he.png" alt="">
+              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/leetcodeq19shan-chu-dao-shu-di-n-ge-jie-dian.png" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="题目给定一个整数数组-nums-和一个目标值-target请你在该数组中找出和为目标值的那-两个-整数并返回他们的数组下标">题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</h2>
-<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。<br>
-示例:<br>
-给定 nums = [2, 7, 11, 15], target = 9<br>
-因为 nums[0] + nums[1] = 2 + 7 = 9<br>
-所以返回 [0, 1]</p>
-<h2 id="解法一">解法一</h2>
-<p>暴力解法两遍遍历找出两数相加等于target的两个val的下标值</p>
-<pre><code class="language-java">public int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
-        for (int i = 0; i &lt; nums.length; i++) {
-            for (int j = i + 1; j &lt; nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    result[0] = i;
-                    result[1] = j;
-                    return result;
-                }
-            }
+                <h2 id="题目给定一个链表删除链表的倒数第-n-个节点并且返回链表的头结点">题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</h2>
+<p>示例：<br>
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.<br>
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</p>
+<h2 id="题解">题解：</h2>
+<p>利用哑结点和快慢指针，让start指针先移动n个位置， 然后两个指针再一起移动，当start移动的已经为空了说明已经到了要删除节点的前一个节点， 让end指针指向它的下下一个节点即可完成删除</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://pic.leetcode-cn.com/cc43daa8cbb755373ce4c5cd10c44066dc770a34a6d2913a52f8047cbf5e6e56-file_1559548337458" alt="" loading="lazy"></figure>
+<pre><code class="language-java">public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dh = new ListNode(0);
+        dh.next = head;
+        ListNode start = dh;
+        ListNode end = dh;
+
+        for (int i = 1; i &lt;= n + 1; i++) {
+            start = start.next;
         }
-        return null;
-}
-</code></pre>
-<h2 id="解法二">解法二</h2>
-<p>一遍遍历，利用hash存储每个值，用target 减去当前遍历的值得到的结果是否 存在hash里，有的话返回两个值的下标</p>
-<pre><code class="language-java"> public int[] twoSum(int[] a, int target) {
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; a.length; i++) {
-            if (map.containsKey(target - a[i])) {
-                return new int[] { map.get(target - a[i]), i };
-            }
-            map.put(a[i], i);
+        while (start != null) {
+            start = start.next;
+            end = end.next;
         }
-        return null;
- }
+        end.next = end.next.next;
+        return dh.next;
+    }
 </code></pre>
 
               </div>
@@ -138,9 +124,8 @@
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E9%A2%98%E7%9B%AE%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84-nums-%E5%92%8C%E4%B8%80%E4%B8%AA%E7%9B%AE%E6%A0%87%E5%80%BC-target%E8%AF%B7%E4%BD%A0%E5%9C%A8%E8%AF%A5%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%BE%E5%87%BA%E5%92%8C%E4%B8%BA%E7%9B%AE%E6%A0%87%E5%80%BC%E7%9A%84%E9%82%A3-%E4%B8%A4%E4%B8%AA-%E6%95%B4%E6%95%B0%E5%B9%B6%E8%BF%94%E5%9B%9E%E4%BB%96%E4%BB%AC%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87">题目:给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</a></li>
-<li><a href="#%E8%A7%A3%E6%B3%95%E4%B8%80">解法一</a></li>
-<li><a href="#%E8%A7%A3%E6%B3%95%E4%BA%8C">解法二</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E8%8A%82%E7%82%B9%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%B4%E7%BB%93%E7%82%B9">题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</a></li>
+<li><a href="#%E9%A2%98%E8%A7%A3">题解：</a></li>
 </ul>
 </li>
 </ul>
@@ -153,9 +138,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://icyfe.github.io/icyblog/post/shen-ru-li-jie-css-quan-chong-zhi/">
+            <a href="https://icyfe.github.io/icyblog/post/leetcodeq2liang-shu-xiang-jia-lian-biao/">
               <h3 class="post-title">
-                深入理解Css权重值
+                LeetCodeQ2:两数相加
               </h3>
             </a>
           </div>
