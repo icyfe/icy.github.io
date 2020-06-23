@@ -2,21 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title> 数组扁平化 | icyfe</title>
+<title>LeetCodeQ19:删除链表的倒数第N个节点 | icyfe</title>
 <link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592891887374">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title=" 数组扁平化 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
+<link rel="alternate" type="application/atom+xml" title="LeetCodeQ19:删除链表的倒数第N个节点 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-要求将他扁平化，并按升序排列
-什么是扁平化？
-就是转换成这样
-..." />
-    <meta name="keywords" content="javascript" />
+    <meta name="description" content="题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+示例：
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -78,86 +77,44 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-               数组扁平化
+              LeetCodeQ19:删除链表的倒数第N个节点
             </h2>
             <div class="post-info">
               <span>
-                2020-06-17
+                2020-06-23
               </span>
               <span>
-                3 min read
+                1 min read
               </span>
-              
-                <a href="https://icyfe.github.io/icyblog/tag/Qh-_2RrfH/" class="post-tag">
-                  # javascript
-                </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://icyfe.github.io/icyblog//post-images/shu-zu-bian-ping-hua.png" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="有这么一个数组-var-arr-1-2-2-3-4-5-5-6-7-8-9-11-12-12-13-14-10">有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];</h2>
-<h2 id="要求将他扁平化并按升序排列">要求将他扁平化，并按升序排列</h2>
-<p><strong>什么是扁平化？</strong><br>
-就是转换成这样<br>
-[[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10] =&gt;[1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10]</p>
-<p><strong>方法一：</strong></p>
-<pre><code class="language-js">function flatAndsort(arr) {
-  return arr
-    .toString()
-    .split(',') //拍平数组(但是有个不好的地方就是会将数字类型转换成字符串类型)
-    .sort((a, b) =&gt; {
-      return a - b; //升序排序
-    })
-    .map(item =&gt; {
-      return parseInt(item); // 因为之前转换成了字符串类型我们转换回来
-    });
-}
-//[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
-</code></pre>
-<p><strong>方法二：</strong></p>
-<pre><code class="language-js">function flat(arr) {
-  return [].concat(
-    ...arr.map(item =&gt; {
-      return Array.isArray(item) == true ? flat(item) : item;
-    })
-  );
-}
-function sort(a, b) {
-  return a - b;
-}
+                <h2 id="题目给定一个链表删除链表的倒数第-n-个节点并且返回链表的头结点">题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</h2>
+<p>示例：<br>
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.<br>
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</p>
+<h2 id="题解">题解：</h2>
+<p>利用哑结点和双指针，让start指针先移动n个位置， 然后两个指针再一起移动，当start移动的已经为空了说明已经到了要删除节点的前一个节点， 让end指针指向它的下下一个节点即可完成删除</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://pic.leetcode-cn.com/cc43daa8cbb755373ce4c5cd10c44066dc770a34a6d2913a52f8047cbf5e6e56-file_1559548337458" alt="" loading="lazy"></figure>
+<pre><code class="language-java">public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dh = new ListNode(0);
+        dh.next = head;
+        ListNode start = dh;
+        ListNode end = dh;
 
-let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
-</code></pre>
-<p><strong>方法三</strong></p>
-<pre><code class="language-js">function flat(arr) {
-  return arr.reduce((pre, current) =&gt; {
-    return pre.concat(current.constructor == Array ? flat(current) : current);
-  }, []);
-}
-function sort(a, b) {
-  return a - b;
-}
-let c = flat(arr); //[ 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10 ]
-</code></pre>
-<p><strong>方法四(完全 ES6 方法)</strong></p>
-<pre><code class="language-js">var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-
-let c = arr.flat(4).sort((a, b) =&gt; {
-  return a - b;
-});
-</code></pre>
-<p>Array.flat()函数是将数据扁平化的一个函数，它接收一个参数，depath 决定数组嵌套的深度，这里例深度是 4 所以我们传 4</p>
-<h2 id="最后在增加一个需求将扁平化升序排列的数组去重如何实现">最后在增加一个需求，将扁平化升序排列的数组去重如何实现？**</h2>
-<p>ES5:</p>
-<pre><code class="language-js">let list = c.filter((item, index, list) =&gt; {
-  return list.indexOf(item) == index;
-});
-</code></pre>
-<p>ES6:</p>
-<pre><code class="language-js">[...new Set([1, 2, 2, 3, 4, 5])]; // 12345
+        for (int i = 1; i &lt;= n + 1; i++) {
+            start = start.next;
+        }
+        while (start != null) {
+            start = start.next;
+            end = end.next;
+        }
+        end.next = end.next.next;
+        return dh.next;
+    }
 </code></pre>
 
               </div>
@@ -165,9 +122,8 @@ let c = arr.flat(4).sort((a, b) =&gt; {
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E6%9C%89%E8%BF%99%E4%B9%88%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84-var-arr-1-2-2-3-4-5-5-6-7-8-9-11-12-12-13-14-10">有这么一个数组 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];</a></li>
-<li><a href="#%E8%A6%81%E6%B1%82%E5%B0%86%E4%BB%96%E6%89%81%E5%B9%B3%E5%8C%96%E5%B9%B6%E6%8C%89%E5%8D%87%E5%BA%8F%E6%8E%92%E5%88%97">要求将他扁平化，并按升序排列</a></li>
-<li><a href="#%E6%9C%80%E5%90%8E%E5%9C%A8%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E9%9C%80%E6%B1%82%E5%B0%86%E6%89%81%E5%B9%B3%E5%8C%96%E5%8D%87%E5%BA%8F%E6%8E%92%E5%88%97%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">最后在增加一个需求，将扁平化升序排列的数组去重如何实现？**</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E8%8A%82%E7%82%B9%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%B4%E7%BB%93%E7%82%B9">题目：给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</a></li>
+<li><a href="#%E9%A2%98%E8%A7%A3">题解：</a></li>
 </ul>
 </li>
 </ul>
@@ -180,9 +136,9 @@ let c = arr.flat(4).sort((a, b) =&gt; {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://icyfe.github.io/icyblog/post/bian-liang-dui-xiang/">
+            <a href="https://icyfe.github.io/icyblog/post/leetcodeq1liang-shu-zhi-he/">
               <h3 class="post-title">
-                变量对象
+                LeetCodeQ1：两数之和
               </h3>
             </a>
           </div>
