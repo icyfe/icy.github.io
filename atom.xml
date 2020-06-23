@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-17T11:15:28.609Z</updated>
+    <updated>2020-06-23T01:41:23.401Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -10,6 +10,43 @@
     <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
     <rights>All rights reserved 2020, icyfe</rights>
+    <entry>
+        <title type="html"><![CDATA[LeetCodeQ1：两数之和]]></title>
+        <id>https://icyfe.github.io/icyblog/post/leetcodeq1liang-shu-zhi-he/</id>
+        <link href="https://icyfe.github.io/icyblog/post/leetcodeq1liang-shu-zhi-he/">
+        </link>
+        <updated>2020-06-22T10:00:15.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="解法一">解法一</h2>
+<p>暴力解法两遍遍历找出两数相加等于target的两个val的下标值</p>
+<pre><code class="language-java">public int[] twoSum(int[] nums, int target) {
+        int[] result = new int[2];
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    result[0] = i;
+                    result[1] = j;
+                    return result;
+                }
+            }
+        }
+        return null;
+}
+</code></pre>
+<h2 id="解法二">解法二</h2>
+<p>一遍遍历，利用hash存储每个值，用target 减去当前遍历的值得到的结果是否 存在hash里，有的话返回两个值的下标</p>
+<pre><code class="language-java"> public int[] twoSum(int[] a, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; a.length; i++) {
+            if (map.containsKey(target - a[i])) {
+                return new int[] { map.get(target - a[i]), i };
+            }
+            map.put(a[i], i);
+        }
+        return null;
+ }
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[深入理解Css权重值]]></title>
         <id>https://icyfe.github.io/icyblog/post/shen-ru-li-jie-css-quan-chong-zhi/</id>
@@ -1201,72 +1238,6 @@ let c = arr.flat(4).sort((a, b) =&gt; {
 <p>ES6:</p>
 <pre><code class="language-js">[...new Set([1, 2, 2, 3, 4, 5])]; // 12345
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[变量对象]]></title>
-        <id>https://icyfe.github.io/icyblog/post/bian-liang-dui-xiang/</id>
-        <link href="https://icyfe.github.io/icyblog/post/bian-liang-dui-xiang/">
-        </link>
-        <updated>2020-06-17T08:00:51.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="什么是变量对象variable-objectvo">什么是变量对象(Variable object，VO)？</h2>
-<p>变量对象是执行上下文中的<strong>数据作用域</strong>，它存储了当前上下文的变量和函数声明。<br>
-执行上下文一般分三种 1.全局执行上下文。 2.函数执行上下文<br>
-3.evel(一般不推荐使用)</p>
-<h2 id="全局上下文的变量对象">全局上下文的变量对象</h2>
-<p>当程序运行的时候，全局上下文会预先定义一个全局对象，包含了一些常用的方法，如:Math,document...<br>
-由这些组成的全局对象就是全局上下文的变量对象</p>
-<h2 id="函数执行上下文的变量对象">函数执行上下文的变量对象</h2>
-<p>而函数的上下文变量对象和全局的不同它分为两个阶段创建阶段和执行阶段，它的创建过程主要由三部分组成 1.建立 Argument 对象，检查当前上下文的形参建立相应的属性。 2.检查函数声明.创建指向函数的引用 3.检查变量声明，由 var 关键字声明的变量(let 和 const 不会加入到变量对象创建阶段会进入暂时性死区)，通过变量提升会初始化为 undefined 如果遇到同名函数声明会跳过。<br>
-举个栗子：</p>
-<pre><code class="language-js">function a() {
-  console.log(b); //function b
-  function b() {
-    console.log('Hello');
-  }
-  var b = 'Hi';
-  var c = 'Hi2';
-  console.log(b); //'Hi'
-}
-</code></pre>
-<p>上面的栗子在创建阶段函数和变量提升，因此打印出函数 b,有人会疑惑为什么不是 undefined 后面的覆盖前面的啊，因为在上面第三点中提到了 如果 var 声明的变量遇到同名的会跳过,后面的 b 输出 hi 因为是在执行阶段赋值产生了覆盖行为。<br>
-创建过程如下</p>
-<pre><code class="language-js">//创建阶段
-VO:{
-        argument:{
-            length:0,
-        }
-        b:&lt; reference&gt; function b(){},
-        c:undefined
-    }
-
-//执行阶段
-AO:{
-        argument:{
-            length:0,
-        }
-        b:Hi,
-        c:Hi2
-    }
-</code></pre>
-<p>这里不禁再次疑问 AO 是什么，其实 AO 就是 VO 两个是指的一个对象，只是在不同阶段发生了变化，当可执行函数在执行栈的最顶端时，也就是当前函数执行上下文被执行，VO 就变成了 AO，并进行一系列的赋值操作<br>
-在来看一个</p>
-<pre><code class="language-js">function a(b) {
-  console.log(b); //function b{}
-  function b() {
-    console.log('Hello');
-  }
-  var b = 'Hi';
-  var c = 'Hi2';
-  console.log(b);
-}
-a(1);
-</code></pre>
-<p>这个明明有传参数为什么还是最后输出来的还是 function b 呢，这里又有一个知识点当传入的形参和函数声明同名时，函数声明会覆盖形参<br>
-总结一下： 1.全局上下文的变量对象就是 window 2.函数上下文变量对象由形参，函数声明，变量声明组成 3.函数上下文变量对象分为创建阶段和声明阶段，两个阶段都会对属性进行更改 1.创建阶段：如果 function 关键字声明的变量与形参同名将会覆盖原有属性，var 声明的变量如果与<br>
-function 声明的重名了将不会影响到已经声明的函数，会跳过，其他通过 var 声明的会初始化为<br>
-undefined 2. 执行阶段:这个阶段会再次对变量进行修改，进行相应的赋值，对任何已经有的值都会进行覆盖。列<br>
-如函数声明</p>
 ]]></content>
     </entry>
 </feed>
