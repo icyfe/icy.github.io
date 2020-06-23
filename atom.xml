@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-23T05:58:42.146Z</updated>
+    <updated>2020-06-23T06:30:33.549Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
     <rights>All rights reserved 2020, icyfe</rights>
+    <entry>
+        <title type="html"><![CDATA[LeetCodeQ2:两数相加]]></title>
+        <id>https://icyfe.github.io/icyblog/post/leetcodeq2liang-shu-xiang-jia-lian-biao/</id>
+        <link href="https://icyfe.github.io/icyblog/post/leetcodeq2liang-shu-xiang-jia-lian-biao/">
+        </link>
+        <updated>2020-06-23T06:19:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="题目给出两个-非空-的链表用来表示两个非负的整数-其中它们各自的位数是按照-逆序-的方式存储的并且它们的每个节点只能存储-一位-数字">题目:给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</h2>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。<br>
+您可以假设除了数字 0 之外，这两个数都不会以 0 开头。<br>
+示例：<br>
+输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>
+输出：7 -&gt; 0 -&gt; 8<br>
+原因：342 + 465 = 807</p>
+<h2 id="题解">题解：</h2>
+<p>利用哑结点，遍历两个链表的值使其一 一相加，用carry记录当前的值是否大于10； 大于10下一位如果有值不为空则+1，如果下一位值为空说明已经遍历完成了，则在末尾创建一个新的节点值为 carry值，当前的相加的值为 sum %10。</p>
+<pre><code class="language-java">public ListNode twoSum(ListNode l1, ListNode l2) {
+        ListNode dh = new ListNode(0);
+        ListNode a = l1, b = l2, pre = dh;
+        int carry = 0;
+        while (a != null || b != null) {
+            int x = (a != null) ? a.val : 0;
+            int y = (b != null) ? b.val : 0;
+            int sum = carry + x + y;
+
+            carry = sum / 10;
+            pre.next = new ListNode(sum % 10);
+            pre = pre.next;
+            if (a != null)
+                a = a.next;
+            if (b != null)
+                b = b.next;
+
+        }
+        // 遍历完成，carry仍然大于0则在末尾创建一个新的节点值为当前的carry值
+        if (carry &gt; 0) {
+            pre.next = new ListNode(carry);
+        }
+        return dh.next;
+    }
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCodeQ19:删除链表的倒数第N个节点]]></title>
         <id>https://icyfe.github.io/icyblog/post/leetcodeq19shan-chu-lian-biao-de-dao-shu-di-n-ge-jie-dian/</id>
@@ -1157,64 +1199,6 @@ ECstack.push(&lt;fun&gt; b)
 ECstack.pop()
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[原型与原型链]]></title>
-        <id>https://icyfe.github.io/icyblog/post/yuan-xing-yu-yuan-xing-lian/</id>
-        <link href="https://icyfe.github.io/icyblog/post/yuan-xing-yu-yuan-xing-lian/">
-        </link>
-        <updated>2020-06-17T08:03:37.000Z</updated>
-        <content type="html"><![CDATA[<p>一直在学习却没有系列的总结过知识点，从这篇开始总结下一些知识点，这次总结的是 js 中的原型与原型链</p>
-<p>开写之前先上一张图，接下来的概念基本上都会围绕这张图来讲<br>
-<img src="https://user-images.githubusercontent.com/44893721/53714411-3577dc00-3e89-11e9-8128-49f13b226f45.png" alt="1 2rwcm 1 o 2h 8xf" loading="lazy"></p>
-<h2 id="什么是原型"><strong>什么是原型？</strong></h2>
-<p>引用红宝书中的一段话：</p>
-<pre><code>无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype
-属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个 constructor
-（构造函数）属性，这个属性包含一个指向 prototype 属性所在函数的指针。
-</code></pre>
-<p>简单点来说<strong>只要是函数就会有一个 prototype(原型)属性它是一个指针</strong>，它指向的是一个对象这个对象就是函数的原型对象，这个对象会默认获得一个 constructor(构造函数）的属性指向 prototype 指针所在的函数，<strong>当我们通过 new 关键字调用函数时就是通过调用构造函数的方式去创建一个对象,这时候会对象实列上面会自动包含一个[[Prototype]]指针指向构造函数的原型对象</strong>，一般[[Prototype]]在浏览器中的实现长这样<strong>proto</strong>。<br>
-其实这就是开头图的第一部分<br>
-<img src="https://user-images.githubusercontent.com/44893721/53715365-85a46d80-3e8c-11e9-8246-26812203fa03.png" alt="ej6h 45puxz 0nla66m 7f" loading="lazy"></p>
-<p>来梳理一下，一下冒出了这么多个属性感觉有点绕 1.函数与函数原型通过<strong>prototype</strong>属性链接， 函数原型的<strong>construtor</strong>属性指向构造函数 2.对象实例与原型对象通过实力的****proto****属性链接。</p>
-<h2 id="原型模式的作用">原型模式的作用</h2>
-<p>说了这么多这个原型到底有什么用呢？<br>
-再次引用红宝书中的一段话</p>
-<pre><code>我们创建的每个函数都有一个 prototype （原型）属性，这个属性是一个指针，指向一个对象，
-而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，那
-么 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以
-让所有对象实例共享它所包含的属性和方法
-</code></pre>
-<p>简单描述下这里的让所有实例可以共享原型对象的属性和方法这句话，当我们在原型对象上创建方法时像下面这样：</p>
-<pre><code class="language-js">function Person() {}
-Person.prototype.sayHi = function() {
-  console.log('Hi!');
-};
-const p = new Person();
-p.sayHi(); //'Hi!'
-</code></pre>
-<p>这段代码我们明明在 Person 中没有定义 sayHi 但是却成功的打印出了'Hi'， 这是因为当对象实例在查找属性时，会优先在本身实例中查找，如果没有查找到就会顺着原型指针指向的原型对象继续查找属性，最终找到了就打印出了'Hi'</p>
-<p>不知道大家有没有发现，我们几乎所有的对象都可以调用 toString 或者 valueOf()方法，比如上面的所示代码也可以调用 toString()</p>
-<pre><code class="language-js">p.toString(); // function Person...
-</code></pre>
-<p>这里不经有个疑问，为什么 Person 的实例没有定义 toString()，原型对象上也没有定义 toString 方法，怎么就调用成功了呢？再次引用红包书的一段话</p>
-<pre><code>大家要记住，所有函数的默认原型都是 Object 的实例，因此默认原
-型都会包含一个内部指针
-</code></pre>
-<p>这里不禁恍然大悟，原来所有的原型对象默认是 Object 的实例，<strong>那么就是说原型对象也会有一个</strong>proto<strong>属性它默认指向 Object 的原型对象，因为 Object 对象上默认定义了一些属性如 toString(),valueOf()等，所以上面当我们调用 p.toString() 在本身实例没找到就会顺着原型去查找，原型对象上没有的时候再次顺着原型对象的</strong>proto<strong>查找，最终找到并执行因此 Object 是所有原型的尽头，还有一点 Object 的原型指向空所以当 Object 都查找不到属性的时候就会报错</strong>，由一系列的原型指针连起来的就组成了原型链。</p>
-<p>这里也就是开头图的第二部分<br>
-<img src="https://user-images.githubusercontent.com/44893721/53717226-71fc0580-3e92-11e9-98a9-824891658bf4.png" alt="image" loading="lazy"></p>
-<p>最后我们来看看最后一部分</p>
-<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/53717251-86400280-3e92-11e9-8a3b-07284fee1f37.png" alt="image" loading="lazy"></figure>
-<p>通常我们定义函数时都是这样定义的</p>
-<pre><code class="language-js">function Person(a, b) {
-  return a + b;
-}
-</code></pre>
-<p>但是殊不知也算可以这样定义的<br>
-<code>let Person = new Function('a','b','return a+b')</code><br>
-这样的写法等价与上面的写法，因此每个函数其实也是 Function 构造函数的实例，所以也遵循以上所描述拥有一系列原型属性，所以我们常常会调用 call 和 apply 的方法就是通过 Function 原型对象上继承来的。</p>
 ]]></content>
     </entry>
 </feed>
