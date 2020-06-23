@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-23T07:02:17.035Z</updated>
+    <updated>2020-06-23T07:05:22.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -21,7 +21,7 @@
 给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.<br>
 当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</p>
 <h2 id="题解">题解：</h2>
-<p>利用哑结点和快慢指针，让start指针先移动n个位置， 然后两个指针再一起移动，当start移动的已经为空了说明已经到了要删除节点的前一个节点， 让end指针指向它的下下一个节点即可完成删除</p>
+<p>利用哑结点和双指针，让start指针先移动n个位置， 然后两个指针再一起移动，当start移动的已经为空了说明已经到了要删除节点的前一个节点， 让end指针指向它的下下一个节点即可完成删除</p>
 <figure data-type="image" tabindex="1"><img src="https://pic.leetcode-cn.com/cc43daa8cbb755373ce4c5cd10c44066dc770a34a6d2913a52f8047cbf5e6e56-file_1559548337458" alt="" loading="lazy"></figure>
 <pre><code class="language-java">public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dh = new ListNode(0);
