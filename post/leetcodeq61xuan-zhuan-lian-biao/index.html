@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LeetCodeQ61:旋转链表 | icyfe</title>
-<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592982328652">
+<link rel="shortcut icon" href="https://icyfe.github.io/icyblog//favicon.ico?v=1592984449182">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://icyfe.github.io/icyblog//styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="LeetCodeQ61:旋转链表 | icyfe - Atom Feed" href="https://icyfe.github.io/icyblog//atom.xml">
@@ -24,7 +24,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://icyfe.github.io/icyblog/">
-  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592982328652" alt="">
+  <img class="avatar" src="https://icyfe.github.io/icyblog//images/avatar.png?v=1592984449182" alt="">
   </a>
   <h1 class="site-title">
     icyfe
@@ -118,7 +118,7 @@
 向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
 <h2 id="题解">题解：</h2>
 <p>1：计算节点个数并找到旧尾链接到新头形成闭环<br>
-3：为了找到新尾巴的位置我们直接用n- k -1即可，防止出现k &gt;节点数n的情况计算结果为负数，只要k%n就可以取得正确的值，得到公式 (n - k % n -1)   ，<br>
+2：为了找到新尾巴的位置我们直接用n- k -1即可，防止出现k &gt;节点数n的情况计算结果为负数，只要        k%n就可以取得正确的值，得到公式 (n - k % n -1)   ，<br>
 3：断开新头新尾巴的链接，<br>
 4：并将新尾巴的next置空</p>
 <pre><code class="language-java"> public ListNode rotateRight(ListNode head, int k) {
