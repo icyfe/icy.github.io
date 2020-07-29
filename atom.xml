@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://icyfe.github.io/icyblog/</id>
     <title>icyfe</title>
-    <updated>2020-06-24T07:40:51.882Z</updated>
+    <updated>2020-07-29T02:32:00.668Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://icyfe.github.io/icyblog/"/>
     <link rel="self" href="https://icyfe.github.io/icyblog/atom.xml"/>
@@ -10,6 +10,28 @@
     <logo>https://icyfe.github.io/icyblog/images/avatar.png</logo>
     <icon>https://icyfe.github.io/icyblog/favicon.ico</icon>
     <rights>All rights reserved 2020, icyfe</rights>
+    <entry>
+        <title type="html"><![CDATA[Electron 踩坑记录]]></title>
+        <id>https://icyfe.github.io/icyblog/post/electron-cai-keng-ji-lu/</id>
+        <link href="https://icyfe.github.io/icyblog/post/electron-cai-keng-ji-lu/">
+        </link>
+        <updated>2020-07-29T02:27:04.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-vuecli3-electron-使用c扩展node文件加载失败问题">1、 vuecli3 electron 使用c++扩展.node文件加载失败问题</h2>
+<figure data-type="image" tabindex="1"><img src="https://icyfe.github.io/icyblog//post-images/1595989722298.png" alt="" loading="lazy"></figure>
+<h3 id="解决">解决</h3>
+<p>再vue.config.js中配置</p>
+<pre><code class="language-js">module.exports = {
+    pluginOptions: {
+        electronBuilder: {
+            chainWebpackMainProcess: config =&gt; {
+                config.module.rule('node').test(/\.node$/).use('node-loader').loader('node-loader').end()
+            },
+        }
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCodeQ61:旋转链表]]></title>
         <id>https://icyfe.github.io/icyblog/post/leetcodeq61xuan-zhuan-lian-biao/</id>
@@ -1066,102 +1088,6 @@ Promise.finally = function (fn) {
 </code></pre>
 <h2 id="nodetype-属性">nodetype 属性</h2>
 <figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/55458438-9d077f80-561f-11e9-96c0-1e9948093bea.jpg" alt="1554273976(1)" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[作用域与作用域链]]></title>
-        <id>https://icyfe.github.io/icyblog/post/zuo-yong-yu-yu-zuo-yong-yu-lian/</id>
-        <link href="https://icyfe.github.io/icyblog/post/zuo-yong-yu-yu-zuo-yong-yu-lian/">
-        </link>
-        <updated>2019-08-10T12:04:34.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="什么是作用域">什么是作用域</h2>
-<p>作用域是变量和函数可影响的范围，也就是当前执行环境的变量和函数可见性。其实也就是执行环境当前变量对象可访问范围，即作用域控制着当前变量对象可见性和生命周期。上面一段话可能有点绕，说白了就是你定义的变量和函数能给被访问的范围，一般分为全局作用域和函数作用域，在 ES6 又新增了块级作用域<br>
-<strong>全局作用域</strong></p>
-<pre><code class="language-js">var a = 'global scope';
-function b() {
-  console.log(a); // 'global scope'
-}
-b();
-</code></pre>
-<p>上面一段代码 在全局定义的变量在哪都能访问的到，它的作用域就是全局的<br>
-<strong>函数作用域</strong></p>
-<pre><code class="language-js">var a = 'global scope';
-function b() {
-  console.log(a); // 'global scope'
-  var c = ' local scope';
-  console.log(c); // 'local scope'
-}
-b();
-console.log(c); // error
-</code></pre>
-<p>这段代码在函数 b 中定义了 c 那么他的作用范围就只限于函数 b，在全局是无法访问到的，因此它的作用域是局部的。</p>
-<h2 id="什么是作用域链">什么是作用域链</h2>
-<p>由一个个作用域的变量对象所构成的链式对象，它决定了当前执行上下文有权访问的变量和函数有序的访问。<br>
-在高程三第七章有一段话大概意思如下：<br>
-<strong>当我们创建函数时，内部会创建一个[[scope]]属性，它包含了全局变量对象的作用域链，当函数执行的时会通过复制函数的[[scope]]构建起当前的作用域链条，并将当前 AO 对象压入作用域的最前端</strong></p>
-<pre><code class="language-js">var global = 'global scope';
-function foo() {
-  var local = 'local scope';
-}
-foo();
-</code></pre>
-<p>我们用上面的代码模拟下上述过程，当上面代码执行的时候首先会创建全局执行上下文并压入执行栈</p>
-<pre><code class="language-js">ECstack = [
-globalcontext.
-]
-</code></pre>
-<p>当遇到函数创建时函数内部创建[[scope]]属性，它包含了全局对象的作用域链。</p>
-<pre><code class="language-js">foo.scope = [globalscope.VO];
-</code></pre>
-<p>当函数执行的时候创建执行上下文并压入栈顶</p>
-<pre><code class="language-js">ECstack = [
-foocontext,
-globalcontext.
-]
-</code></pre>
-<p>我们前面提到过函数执行的时候分为两个阶段，编译阶段和执行阶段，编译阶段复制 f 函数创建时候的[[Scope]]对象并利用 argumen 初始化 AO 对象</p>
-<pre><code class="language-js">foocontext = {
- AO:{
-  argument:{
-   length:0
-    },
-   local:undefined,
-  },
- Scope:foo.[[Scope]]
-}
-</code></pre>
-<p>当执行阶段的时候为 AO 对象赋值，并将 AO 对象压入作用域链的最前端</p>
-<pre><code class="language-js">foocontext = {
-  AO: {
-    argument: {
-      length: 0
-    },
-    local: 'local scope'
-  },
-  Scope: [AO, [[Scope]]]
-};
-</code></pre>
-<h2 id="总结">总结</h2>
-<p>就这样作用域链中的下一个变量对象来自包含（外部）环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。<br>
-当我们查找一个变量的时候就会从自身开始查找，如果没查找到就会顺着作用域链网上查找父级的变量对象知道找到为止，否则就报错。<br>
-下面举一个高程三中的栗子</p>
-<pre><code class="language-js">var color = 'blue';
-function changeColor() {
-  var anotherColor = 'red';
-  function swapColors() {
-    var tempColor = anotherColor;
-    anotherColor = color;
-    color = tempColor;
-    // 这里可以访问 color、anotherColor 和 tempColor
-  }
-  // 这里可以访问 color 和 anotherColor，但不能访问 tempColor
-  swapColors();
-}
-// 这里只能访问 color
-changeColor();
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/44893721/54472457-9d241480-4803-11e9-9aa6-2ec52f8dd16d.jpg" alt="1552722706(1)" loading="lazy"></figure>
-<p><strong>矩形表示特定的执行环境。其中，内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。这些环境之间的联系是线性、有次序的。每个环境都可以向上搜索作用域链，以查询变量和函数名；但任何环境都不能通过向下搜索作用域链而进入另一个执行环境。对于这个例子中的 swapColors() 而言，其作用域链中包含 3 个对象： swapColors() 的变量对象、 changeColor() 的变量对象和全局变量对象。 swapColors() 的局部环境开始时会先在自己的变量对象中搜索变量和函数名，如果搜索不到则再搜索上一级作用域链。 changeColor() 的作用域链中只包含两个对象：它自己的变量对象和全局变量对象。这也就是说,它不能访问 swapColors() 的环境</strong></p>
 ]]></content>
     </entry>
 </feed>
